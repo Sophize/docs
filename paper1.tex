@@ -2,17 +2,11 @@
 \usepackage{graphicx}
 \usepackage{onecolceurws}
 
-\title{The One Column Style for CEUR-WS}
+\title{Sophize Markdown and Communication Interface }
 
 \author{
-Mary Y. Writter \\ Publishing Dept.\\
-                Paper City, PUB 11011 \\ mqw@pubdept.eu
-\and
-John X. Ceur \\ Science Dept.\\
-                Online City, CEUR 99099 \\ jqq@ceur-ws.org
-\and
-Yvonne Onderzoeker \\ Research Dept.\\
-                Science City, Sci 88088 \\ yvo@science.rdept.net
+Abhishek Chugh \\ Sophize Foundation\\
+                Bengaluru, India \\ abc@sophize.org
 }
 
 \institution{}
@@ -24,147 +18,80 @@ Yvonne Onderzoeker \\ Research Dept.\\
 \maketitle
 
 \begin{abstract}
-The Abstract paragraph should be indented $1.25$ inch on both
-the left and right-hand margins. Abstract must be centered, bold, and
-in point size 12. Two line spaces precede the Abstract. The Abstract
-must be limited to one paragraphos.
+Providing mathematicians to see connections of Mathematical objects (definitions, propositions, proofs) within and across multiple document has the potential to vastly accelerate mathematical research. We extend the markdown language and to demonstrate a new interactive way of representing such deeply connected mathematical knowledge on the web. We also utilize this new language to create a novel communication system that is specially built to allow a large number of collaborators to collaboratively solve mathematical problems.
 \end{abstract}
 \vskip 32pt
 
 
-\section{General Formatting Instructions}
+\section{Introduction}
 
-The format is in one column. The left margin is .9 inches (5.5 picas). Use 10 point type,
-with a vertical spacing of 11 points. Times Roman is the preferred
-typeface throughout.
+Sophize is a novel Mathematics library and discussion platform. Mathematical proofs are developed from multiple POV (foundations, verification standards) and a single proof spans across a large number of documents - theorems to axioms. Our primary mission is to make it easy for mathematicians to allow mathematicians to find, discuss and discover such proofs. To achieve this mission, we are working on three goals:
 
-Paper title is 16 point, Caps/lowercase, bold, centered. Subsequent
-pages should start at 1 inch (6 picas) from the top of the page.
+formalize the largely unexplored network of information embedded in the connections of mathematical objects as envisioned by the GDML committee.
+Using the network of information to combine proofs based on each user’s chosen foundations and verification standards.
+Create a platform that is tailored for communication of mathematical ideas which utilizes and augments the network of information.
 
-Authors names are centered, initial caps; co-authors names, if used, are
-flush left and flush right.
+To achieve the above goals, we believe it is necessary to create a new format that is as extremely convenient for a casual web conversation of mathematical ideas and is powerful enough to embed mathematical entities (definitions, theorems, proofs etc.) from a wide variety of sources. The markdown language has the simplicity, extensibility and wide acceptance on the web that we are looking for. Sophize markdown extends the markdown format to meet our requirements.
 
-Paragraphs are indented by 1 pica with no space between paragraphs.
+The communication interface on the Sophize is designed to help mathematicians easily make sense of the discussion even when a post receives a large number of comments from many collaborators. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to come with the design of our interface. Conveniently, the leaders have publically analysed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is derived directly from the list of features desired and posted on their respective blogs by Prof Timothy Gowers and Prof Terence Tao. We believe that these features will not only aid large scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
 
-\section{First Level Heading}
 
-First level headings are all flush left, initial caps, bold and in point
-size 12. One line space before the first level heading and $1/2$ line
-space after the first level heading.
+\section{Preliminaries}
 
-\subsection{Second Level Heading}
+Describe def, prop, arg, resourcepointer.
 
-Second level headings must be flush left, initial caps, bold and in point
-size 10. One line space before the second level heading and $1/2$ line
-space after the second level heading.
+\subsection{Sophize Markdown}
 
-\subsubsection{Third Level Heading}
+What is markdown, out of box features
+
+\subsubsection{Latex extension}
 
 Third level headings must be flush left, initial caps and bold.
 One line space before the third level heading and $1/2$ line
 space after the third level heading.
 
-\paragraph{Fourth Level Heading}
+\subsubsection{Link extension}
 
 Fourth level headings must be flush left, initial caps and roman type.
 One line space before the fourth level heading and $1/2$ line
 space after the fourth level heading.
 
-\subsection{Citations In Text}
+\paragraph{Link Types}
+Overlay, NO LINK, 
 
-Citations within the text should indicate the author's last name and
-year\cite{Knuth-vol3}. Reference style\cite{Comer-btree}
-should follow the style that you are used to using, as long as the
-citation style is consistent.
+\paragraph{Status indicators}
 
-\subsubsection{Footnotes}
+
+\paragraph{Resource Expansion}
+
+\subsubsection{Formal Language Support}
 
 Indicate footnotes with a number\footnote{This is a sample footnote} in
 the text. Place the footnotes at the bottom of the page they appear on.
 Precede the footnote with a vertical rule of 2 inches (12 picas).
 
-\subsubsection{Figures}
+\subsubsection{Renderer}
+\paragraph{ Indicators }
+\paragraph{ Resource Overlay }
+\paragraph{ Proof views }
 
-All artwork must be centered, neat, clean and legible. Do not use pencil
-or hand-drawn artwork. Figure number and caption always appear after the
-the figure. Place one line space before the figure, one line space
-before the figure caption and one line space after the figure caption.
-The figure caption is initial caps and each figure is numbered
-consecutively.
+\section{Sophize Collaboration Interface}
+Guiding principles/motivations?
+\subsection{Hierarchical Page Organization}
 
-Make sure that the figure caption does not get separated from the
-figure. Leave extra white space at the bottom of the page to avoid
-splitting the figure and figure caption.
+\subsection{Using existing math content}
 
-Figure \ref{fig1} shows how to include a figure as encapsulated postscript.
-The source of the figure is in file {\tt fig1.eps}.
+\subsection{Referencing Comments}
 
-\begin{figure}[ht]
-\begin{center}
-\includegraphics[height=4cm]{fig1}
-\caption{Sample EPS figure }
-\label{fig1}
-\end{center}
-\end{figure}
+\subsection{Moderation Tools}
 
-Below is another figure using LaTeX commands.
+\subsection{Hierarchical organization of comments}
 
+\subsection{Comment Summaries}
 
-\begin{figure}[ht]
-\begin{center}
-\setlength{\unitlength}{1pt}
-\footnotesize
-\begin{picture}(160,80)
-        \put(0,0){\framebox(160,80)[]{}}
-        \put(10,35){\framebox(80,40){}}
-        \put(100,20){\framebox(40,20){}}
-        \put(70,10){\framebox(20,10){}}
-        \put(20,5){\framebox(10,5){}}
-\end{picture}
-\caption{Sample Figure Caption}
-\end{center}
-\end{figure}
+\subsection{Live Latex Preview}
 
-
-
-\subsubsection{Tables}
-
-All tables must be centered, neat, clean and legible. Do not use pencil
-or hand-drawn tables. Table number and title always appear before the
-table.
-
-One line space before the table title, one line space after the table
-title and one line space after the table. The table title must be
-initial caps and each table numbered consecutively.
-
-\begin{table}[ht]
-\begin{center}
-\caption{Sample Table}
-
-\bigskip
-
-\begin{tabular}{|l|l|r|}
-\hline
-A & B & 1\\ \hline
-C & D & 2\\
-E & F & 3\\ \hline
-\end{tabular}
-\end{center}
-\end{table}
-
-
-\subsubsection{Handling References}
-
-Use a first level heading for the references. References follow the
-acknowledgements.
-
-
-\subsubsection{Acknowledgements}
-
-Use a third level heading for the acknowledgements. All acknowledgements
-go at the end of the paper.
-
-
+\subsubsection*{Acknowledgements}
 
 
 %\bibliographystyle{alpha} 
