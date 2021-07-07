@@ -5,75 +5,86 @@
 \title{Sophize Markdown and Communication Interface }
 
 \author{
-Abhishek Chugh \\ Sophize Foundation\\
-                Bengaluru, India \\ abc@sophize.org
+Abhishek Chugh
 }
 
-\institution{}
-
-
+\institution{ Sophize Foundation\\
+                Bengaluru, India \\ abc@sophize.org }
 
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-Providing mathematicians to see connections of Mathematical objects (definitions, propositions, proofs) within and across multiple document has the potential to vastly accelerate mathematical research. We extend the markdown language and to demonstrate a new interactive way of representing such deeply connected mathematical knowledge on the web. We also utilize this new language to create a novel communication system that is specially built to allow a large number of collaborators to collaboratively solve mathematical problems.
+We want to provide mathematicians the ability to deeply explore the concepts embedded across the math literature effortlessly. We extend the markdown language and to demonstrate a new interactive way of representing such deeply connected mathematical knowledge on the web. We also utilize this new language to create a novel communication system that is specially built to allow a large number of collaborators to collaboratively solve mathematical problems.
 \end{abstract}
 \vskip 32pt
 
 
 \section{Introduction}
 
-Sophize is a novel Mathematics library and discussion platform. Mathematical proofs are developed from multiple POV (foundations, verification standards) and a single proof spans across a large number of documents - theorems to axioms. Our primary mission is to make it easy for mathematicians to allow mathematicians to find, discuss and discover such proofs. To achieve this mission, we are working on three goals:
+Sophize is a novel Mathematics library and discussion platform. Our primary mission is to help our users find existing and discover new proofs of mathematical statements and utilize this knowledge for their work. All mathematical proofs can be seen as directed acyclic graphs of logical arguments that span across a large number of documents and databases. These proofs arise from a variety of different foundations such as ZFC, intuitionistic logic, type theory, and many others. The arguments used in any proof are considered valid based on standards - most academic mathematics is peer-reviewed, some mathematic proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification is when they are represented in a formal language. Thus, to aggregate proofs from such a wide variety of sources that utilize a wide variety of foundations and verification criteria is a challenging problem that requires novel knowledge organization techniques and user interfaces that are needed for such an organization. In this article, we focus on these user interfaces that help users to effortless navigate and understand existing proofs and discover new ones.  Our work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The GDML committee comprising of multiple leaders in the math community recognized this network is largely unexplored and formalizing it will accelerate math research.
 
-formalize the largely unexplored network of information embedded in the connections of mathematical objects as envisioned by the GDML committee.
-Using the network of information to combine proofs based on each user’s chosen foundations and verification standards.
-Create a platform that is tailored for communication of mathematical ideas which utilizes and augments the network of information.
-
-To achieve the above goals, we believe it is necessary to create a new format that is as extremely convenient for a casual web conversation of mathematical ideas and is powerful enough to embed mathematical entities (definitions, theorems, proofs etc.) from a wide variety of sources. The markdown language has the simplicity, extensibility and wide acceptance on the web that we are looking for. Sophize markdown extends the markdown format to meet our requirements.
-
-The communication interface on the Sophize is designed to help mathematicians easily make sense of the discussion even when a post receives a large number of comments from many collaborators. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to come with the design of our interface. Conveniently, the leaders have publically analysed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is derived directly from the list of features desired and posted on their respective blogs by Prof Timothy Gowers and Prof Terence Tao. We believe that these features will not only aid large scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
+In this paper, we first discuss the creation of a language, which is an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web and is powerful enough to embed mathematical entities such as definitions, theorems, proofs from a wide variety of sources, including formal languages. Secondly, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when a large number of comments have been posted by many collaborators. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to come with the design of our interface. Conveniently, the leaders have publically analysed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is derived directly from the list of features desired and posted on their respective blogs by Prof Timothy Gowers and Prof Terence Tao. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
 
 
 \section{Preliminaries}
 
-Describe def, prop, arg, resourcepointer.
+Before we describe the Sophize markdown language, it would be necessary to briefly describe how we model mathematical entities\footnote{This datamodel is published in JSON schema and language such as Typescript, Python at https://github.com/Sophize}. Here we describe parts of some of the concepts relevant for this paper.
 
-\subsection{Sophize Markdown}
+\subsection*{Resource}
+A resource is an abstract concept inherited by all other top-level concepts like terms, propositions and arguments. It contains fields such as search tags and citations, and a unique identifier used to refer to this concept called a resource pointer.
+
+A resource pointer consists of two parts first a namespace-like identifier which indicated the source of the data and a resource-id that that indicates the what kind of resource it is and its specific address.
+
+
+For example, the definition (\textbf{T}erm) of cone extracted from wikipedia may have the resource pointer \emph{wiki/T\_cone} and Pythagoras's theorem (\textbf{P}roposition) represented in the metamath project may have the resource pointer \emph{metamath/P\_pythagoras}.
+
+
+\subsection*{Term}
+A term is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, entity, data structure, algorithm or even a person. Meaningless symbols in formal theories also categorized as terms.
+
+\subsection*{Proposition}
+A proposition is grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypothesis, lemmas, corollaries, converses are all classified as propositions.
+
+\subsection*{Argument}
+An argument is set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments have a supporting text that explains how the conclusion follows from the premises.
+
+
+\section{Sophize Markdown}
 
 What is markdown, out of box features
 
-\subsubsection{Latex extension}
+\subsection{Latex extension}
 
 Third level headings must be flush left, initial caps and bold.
 One line space before the third level heading and $1/2$ line
 space after the third level heading.
 
-\subsubsection{Link extension}
+\subsection{Link extension}
 
 Fourth level headings must be flush left, initial caps and roman type.
 One line space before the fourth level heading and $1/2$ line
 space after the fourth level heading.
 
-\paragraph{Link Types}
+\subsubsection{Link Types}
 Overlay, NO LINK, 
 
-\paragraph{Status indicators}
+\subsubsection{Status indicators}
 
 
-\paragraph{Resource Expansion}
+\subsubsection{Resource Expansion}
 
-\subsubsection{Formal Language Support}
+\subsection{Formal Language Support}
 
 Indicate footnotes with a number\footnote{This is a sample footnote} in
 the text. Place the footnotes at the bottom of the page they appear on.
 Precede the footnote with a vertical rule of 2 inches (12 picas).
 
-\subsubsection{Renderer}
-\paragraph{ Indicators }
-\paragraph{ Resource Overlay }
-\paragraph{ Proof views }
+\subsection{Renderer}
+\subsubsection{ Indicators }
+\subsubsection{ Resource Overlay }
+\subsubsection{ Proof views }
 
 \section{Sophize Collaboration Interface}
 Guiding principles/motivations?
