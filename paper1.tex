@@ -2,8 +2,9 @@
 \usepackage{graphicx}
 \usepackage{onecolceurws}
 \usepackage{csquotes}
+\usepackage{hyperref}
 
-\title{Sophize Markdown and Communication Interface }
+\title{Sophize Markdown and Collaboration Interface }
 
 \author{
 Abhishek Chugh
@@ -17,117 +18,236 @@ Abhishek Chugh
 \maketitle
 
 \begin{abstract}
-We want to provide mathematicians the ability to deeply explore the concepts embedded across the math literature effortlessly. We extend the markdown language and to demonstrate a new interactive way of representing such deeply connected mathematical knowledge on the web. We also utilize this new language to create a novel communication system that is specially built to allow a large number of collaborators to collaboratively solve mathematical problems.
+We extend the markdown language to represent the connections of mathematical objects that exist across various sources of knowledge. Using the new language, we demonstrate an interactive interface that helps its users effortlessly explore mathematics content on the web. We also utilize this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
+
 \end{abstract}
+
 \vskip 32pt
 
+ 
 
 \section{Introduction}
 
-Sophize is a novel Mathematics library and discussion platform. Our primary mission is to help our users find existing and discover new proofs of mathematical statements and utilize this knowledge for their work. All mathematical proofs can be seen as directed acyclic graphs of logical arguments that span across a large number of documents and databases. These proofs arise from a variety of foundations such as ZFC, intuitionistic logic, type theory, and many others. The arguments used in any proof are considered valid based on standards - most academic mathematics is peer-reviewed, some mathematic proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented in a formal language. Thus, to aggregate proofs from such a wide variety of sources that utilize a wide variety of foundations and verification criteria is a challenging problem that requires novel knowledge organization techniques and user interfaces needed for such an organization. This article focuses on these user interfaces that help users effortlessly navigate and understand existing proofs and discover new ones.  Our work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The GDML committee comprising of multiple leaders in the math community recognized this network is largely unexplored, and formalizing it will accelerate math research. 
 
-In this paper, we first discuss the details of a Sophize Markdown, which is an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, proofs from a wide variety of sources, including formal languages. Secondly, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when many collaborators have posted a large number of comments. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to come up with our interface design. Conveniently, the leaders have publically analysed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is derived directly from the list of features desired and posted on their respective blogs by Prof Timothy Gowers and Prof Terence Tao. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
+Sophize is a novel Mathematics library and discussion platform. Our primary mission is to help our users find existing and discover new proofs of mathematical statements and utilize this knowledge for their work. All mathematical proofs can be seen as directed acyclic graphs of logical arguments that span across a large number of documents and databases. These proofs arise from a variety of foundations such as ZFC, intuitionistic logic and type theory. The arguments used in any proof are considered valid based on varying criteria - most academic mathematics is peer-reviewed, some mathematic proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using as formal system. Thus, aggregating proofs from such a wide variety of sources that utilize a wide variety of foundations and verification criteria is a challenging problem that requires novel knowledge organization techniques and user interfaces needed for such an organization. This article focuses on these user interfaces that help to navigate and understand existing proofs and discover new ones.  Our work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The committee on planning a global library of the mathematical sciences recognized this network is largely unexplored, and formalizing it has tremendous potential to accelerate math research\cite{sciences2014developing}. This introductory video gives an overview of our how structured knowledge can help: \url{https://youtu.be/Wb1JbW9Otek}.
+
+
+
+In this paper, we first discuss the details of Sophize Markdown, an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, proofs from a wide variety of sources, including formal languages. Then, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when many collaborators have posted a large number of comments. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to develop our interface design. Conveniently, the leaders have publically analyzed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is designed specifically overcome the issues noted by Prof Timothy Gowers \cite{gowers_weblog_2009} and Prof Terence Tao\cite{whats_new_2009}. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
+
 
 
 \section{Preliminaries}
 
-Before we describe the Sophize markdown language, it would be necessary to briefly describe how we model mathematical entities\footnote{This datamodel is published in JSON schema and language such as Typescript, Python at https://github.com/Sophize}. Here we describe parts of some of the concepts relevant for this paper.
+
+Before we describe the Sophize markdown language, it would be necessary to briefly describe how we model mathematical entities. The data model is published in JSON schema\cite{sophize_datamodel} and popular package managers such as MVN, npm and PyPI. We describe relevant parts of the concepts used here.
+
 
 \subsection*{Resource}
-A resource is an abstract concept inherited by all other top-level concepts like terms, propositions and arguments. It contains fields such as search tags and citations, and a URI.
 
-A uri consists of two parts: a namespace-like identifier called dataset-id which indicates the source of the data and a resource-id that that indicates the what kind of resource it is and its specific address. The dataset-id may be omitted and if it can be inferred from the surrounding context.
+A resource is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.
 
-For example, Pythagoras's theorem (\textbf{P}roposition) represented in the metamath project may have the uri \emph{metamath/\textbf{P}\_pythagoras} and the definition (\textbf{T}erm) of cone extracted from wikipedia may have the uri \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the 'wiki' dataset, cone's definition can be pointed simply by \emph{T\_cone}.
+
+A URI consists of two parts: a namespace-like identifier called dataset-id, which indicates the data source, and a resource-id that indicates what kind of resource it is along with its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
+
+
+For example, Pythagoras's theorem (\textbf{P}roposition) represented in the Metamath project may have the uri \emph{metamath/\textbf{P}\_pythagoras} and the definition of cone (\textbf{T}erm) extracted from wikipedia may have the uri \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the 'wiki' dataset, cone's definition can be referred simply by \emph{T\_cone}.
 
 
 \subsection*{Term}
-A term is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, entity, data structure, algorithm or even a person. Meaningless symbols in formal theories also categorized as terms.
+
+A term is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, entity, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.
+
 
 \subsection*{Proposition}
-A proposition is grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypothesis, lemmas, corollaries, converses are all classified as propositions.
+
+A proposition is a grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypotheses, lemmas, corollaries, converses are all classified as propositions.
+
 
 \subsection*{Argument}
-An argument is set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments have a supporting text that explains how the conclusion follows from the premises. A proof can thus be seen as directed graph of arguments and propositions.
+
+An argument is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments have a supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.
 
 
 \section{Sophize Markdown}
-Markdown is a lightweight markup language for creating formatted text using a plain-text editor. Markdown is very widely adopted on the web and it makes quite simple to add lists, headers, bold/italic fonts, images and more. One can choose from a number of slightly varying markdown specifications. We start with the widely supported CommonMark specification and create extensions that are needed for our requirements. The extensions are implemented using the `markdown-it' JavaScript parser. The parser for Sophize markdown produces an AST tree. A separate renderer module utilizes the AST tree to create the appropriate HTML or Single Page Application (SPA) libraries that can be used in frameworks like Angular, React or Vue.
+
+Markdown is a lightweight markup language for creating formatted text using a plain-text editor. Markdown is very widely adopted on the web, and it makes it quite simple to add lists, headers, bold/italic fonts, images, and more. One can choose from several slightly varying markdown specifications. We start with the widely supported CommonMark specification and create extensions that are needed for our requirements. The extensions are implemented using the `markdown-it' \cite{markdown_it} JavaScript parser. The parser for Sophize markdown produces an AST tree. A separate renderer module utilizes the AST tree to create the appropriate HTML or Single Page Application (SPA) libraries. Many of the features described here are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}
 
 \subsection{Parser Extension: Tex Math}
-While there are multiple applications that extend markdown to support TeX, there is no clear standard specification on the syntax. However, Pandoc is the most widely tool for converting LaTeX to markdown and its specification is well documented and tested. Thus, we use their math specification for our extension:
+
+While multiple applications extend markdown to support TeX, there is no standardized syntax specification. However, Pandoc is the most widely tool for converting LaTeX to markdown, and its specification is well documented and tested. Thus, we use their specification for our extension\cite{pandoc}:
+
 
 \blockquote{Anything between two \$ characters will be treated as TeX math. The opening \$ must have a non-space character immediately to its right, while the closing \$ must have a non-space character immediately to its left, and must not be followed immediately by a digit. Thus, \$20,000 and \$30,000 won’t parse as math. If for some reason you need to enclose text in literal \$ characters, backslash-escape them and they won’t be treated as math delimiters.
 
+
 For display math, use \$\$ delimiters. (In this case, the delimiters may be separated from the formula by whitespace. However, there can be no blank lines between the opening and closing \$\$ delimiters.)}
 
+
 \subsection{Parser Extension: Resource Links}
-This extensions allows embedding easily embed links to resources such as terms, propositions, and arguments. Links can be added using the URI and the following formats are supported:
+
+This extension allows embedding easily embed links to resources such as terms, propositions, and arguments. Links can be added using the URI, and the following formats are supported:
+
 
 \begin{itemize}
+
 	\item \#URI[ $\vert$ OPTIONS]
 
+
 	Examples: \#wiki/T\_cone, \#planetmath/P\_covering\_lemma$\vert$NO\_LINK$\vert$LC
+
 	\item \#(URI, [\textquotesingle LINK\_TEXT\textquotesingle][ $\vert$ OPTIONS])
+
 	
+
 	Examples: \#(wiki/T\_cone, \textquotesingle cones\textquotesingle), \#(P\_greens\_lemma, EXPAND)
+
 \end{itemize}
 
 
+
 \subsubsection{Options}
-The different resource link options provide multiple ways to embed a resource in the markdown. These are required to make it convenient for the content creators to provide a rich experience for their readers.
 
-Overlay, NO LINK, 
+The different resource link options provide different ways to embed a resource in the markdown. These are required to make it convenient for the content creators to provide a rich experience for their readers. The following are most commonly used:
 
-\subsubsection{Resource Expansion}
+
+\paragraph{NAME (default)}
+
+Fetches the resource and sets the link text to the name of the resource. For terms, the link text is set to the phrase of the terms.
+
+
+\paragraph{EXPAND}
+
+Instead of creating a link, expands the resource in place. For terms and propositions, the definition and the statement are added in place, respectively. For arguments, the premises, conclusion, and the argument text is added in place.
+
+
+\paragraph{OVERLAY\_LINK (default)}
+
+In the case of an overlay link, clicking on the link opens up a modal dialog to show a resource summary instead of navigating to another URL.
+
+
+\paragraph{NAV\_LINK}
+
+Clicking the link causes the browser to navigate to the web page indicated by the resource's URI.
+
+
+\paragraph{LOWER\_CASE or LC}
+
+Lower cases the link text. This becomes quite useful when adding a link in the middle of a sentence where adding the name in its default case would be grammatically incorrect.
+
+
+\paragraph{SHOW\_TVI (default)}
+
+For propositions only. Adds a truth value icon indicating whether or not there is a proof available for the proposition. Clicking on the icon brings up the proof as a graph of arguments.
+
+
+\paragraph{HIDE\_TVI}
+
+The truth value icon is hidden.
+
 
 \subsection{Formal Language Support}
-In case of formal languages, definitions of terms, statements of propositions and even argument supporting text may be parse-able by an external parser. In such a case, we can convert the externally parsed output into regular markdown where each term is automatically linked to the appropriate resource. This provides for a very pleasant interface, where the user types in the native language and the final output automatically highlights all parts of a term. Currently, this is demonstrated on the Sophize Markdown with the metamath language.
 
-\subsection{Renderer}
+In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parseable by an external parser. We can convert the externally parsed output into markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a delightful interface, where the user types in the native language, and the final output automatically allows users to deeply explore all concepts than make up the input statement. Currently, this is demonstrated in the Sophize Markdown with the Metamath language.
 
-\subsubsection{ Indicators }
-\subsubsection{ Resource Overlay }
-\subsubsection{ Proof views }
 
 \section{Sophize Collaboration Interface}
-Guiding principles/motivations?
+
+Sophize collaboration interface is designed to allow multiple researchers to simultaneously discuss multiple approaches to solve the problem of interest. In open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that dissuades even the experts and the highly motivated. This work is primarily influenced by recommendations made by Professor Timothy Gowers and Professor Terence Tao after organizing a few polymath projects. We believe that the interface can aid all collaborations types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
+
+
+\subsubsection*{Requirements}
+
+In open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task. This is perhaps the primary impediment that dissuades even the experts and the highly motivated from participating.
+
+
+To solve this problem, we need to organize the ideas that get tossed rapidly and summarize the progress. A reader should be able to quickly grasp the current progress, and project moderators need a way to manage the direction of various threads to avoid the big picture from being obscured.
+
+
+Some of the other technical requirements were discussed by some project participants and summarized by Prof. Tao on his blog (lightly edited):
+
+\begin{itemize}
+
+  \item LaTeX support
+
+  \item Group moderation
+
+  \item Comment editing and preview
+
+  \item Comment numbering and/or threading
+
+  \item Wiki-like features, i.e., group-editable, publicly-viewable documents with version control
+
+  \item Some way to view all recent comments or developments in a project
+
+  \item Easy registration process
+
+  \item Easy commenting process (i.e., no technical knowledge required)
+
+  \item Permanent URLs for posts and comments (for link-back purposes)
+
+\end{itemize}
+
+
+WE note that Sophize provides all the above features except that it doesn't let users look at the versions of documents. We summarize innovative features of the platform below:
+
+
 \subsection{Hierarchical Page Organization}
 
-\subsection{Using existing math content}
+As noted by Prof Gowers, to make sense of the numerous ideas discussed, they need to be organized in a natural hierarchical way. The "proof discovery tree," as Gower calls it, would have a precise approach to the main problem, and each of the subproblems that come up would have its own trees. The leaves of the tree would thus be sub-problems that get solved without division into sub-problems.
 
-\subsection{Referencing Comments}
 
-\subsection{Moderation Tools}
+Sophize brings the 'Proof-discovery tree' to life by organizing the project using neatly organized wiki-like pages. Pages have a parent-child relationship allowing them to be organized like a tree. Discussion comments can be posted on any page, and moderators can re-arrange them the way they think is best for the project. Moderators are also encouraged to add an overview on each page that would quickly inform readers of the significant ideas that they should know before they start contributing.
 
-\subsection{Hierarchical organization of comments}
 
 \subsection{Comment Summaries}
 
-\subsection{Live Latex Preview}
+Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. For example, they can club together multiple comment chains that were dead ends so that each reader doesn't waste their time. Or they could summarize a sub-proof that was arrived at after dozens of comments for future readers.
+
+
+\subsection{Sophize Markdown benefits}
+
+Project collaborators get all the benefits of Sophize Markdown, such as easy linking of existing math content, latex support, and live preview of pages and comments being written or edited.
+
+
+Comments in Sophize are numbered serially (starting with 1 for each collaboration),
+
+each comment can be referenced with the hashtag notation (e.g., `\#3' for the 3rd comment).
+
+Comments in different projects can be references by providing the URI (\#URI/COMMENT\_NUMBER).
+
+
+
+\subsection{Moderation Tools}
+
+Sophize gives moderators usual moderation tools like spam removal and fine-grained access control to manage participants. In addition, we add a new feature where certain comments can be marked hidden. Often, threads of dozens of comments can be just noise in such discussions because they were based on confused concepts or mistaken assumptions. Such comments should not be marked as spam. By marking such threads as 'hidden,' moderators can ensure that these are not shown by default. But any user can choose to see them if needed.
+
+
 
 \subsubsection*{Acknowledgements}
 
+...
 
-%\bibliographystyle{alpha} 
-%\bibliography{samplebib}
+
+\bibliographystyle{alpha} 
+
+\bibliography{mybib}
+
 %inline the .bbl file directly for mailing to authors.
 
-\begin{thebibliography}{Com79}
+%\begin{thebibliography}{Com79}
 
-\bibitem[Com79]{Comer-btree}
-D.~Comer.
-\newblock The ubiquitous b-tree.
-\newblock {\em Computing Surveys}, 11(2):121--137, June 1979.
+%\bibitem[Com79]{Comer-btree}
+%D.~Comer.
+%\newblock The ubiquitous b-tree.
+%\newblock {\em Computing Surveys}, 11(2):121--137, June 1979.
 
-\bibitem[Knu73]{Knuth-vol3}
-D.~E. Knuth.
-\newblock {\em The Art of Computer Programming -- Volume 3 / Sorting and
-  Searching}.
-\newblock Addison-Wesley, 1973.
 
-\end{thebibliography}
+%\bibitem[Com79]{Comer-btree}
+%D.~Comer. \newblock The ubiquitous b-tree. \newblock {\em Computing Surveys}, 11(2):121--137, June 1979.
+
+%\bibitem[Knu73]{Knuth-vol3}
+%D.~E. Knuth. \newblock {\em The Art of Computer Programming -- Volume 3 / Sorting and Searching}. \newblock Addison-Wesley, 1973.
+%\end{thebibliography}
 
 \end{document}
-
-
