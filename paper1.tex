@@ -113,7 +113,7 @@ The different resource link options provide different ways to embed a resource i
 
 \paragraph{NAME (default)}
 
-Fetches the resource and sets the link text to the name of the resource. For terms, the link text is set to the phrase of the terms.
+Fetches the resource and sets the link text to the name of the resource. For terms, the link text is set to the phrase of the term.
 
 
 \paragraph{EXPAND}
@@ -158,13 +158,10 @@ Sophize collaboration interface is designed to allow multiple researchers to sim
 
 \subsubsection*{Requirements}
 
-In open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task. This is perhaps the primary impediment that dissuades even the experts and the highly motivated from participating.
+Helping users make sense of the conversation and allowing them to get up to speed with existing conversation as quickly as possible is perhaps the most important requirement for managing online collaborations. To solve this problem, we need to organize the ideas that get tossed rapidly and summarize the progress. A reader should be able to quickly grasp the current progress, and project moderators need a way to manage the direction of various threads to avoid the big picture from being obscured.
 
 
-To solve this problem, we need to organize the ideas that get tossed rapidly and summarize the progress. A reader should be able to quickly grasp the current progress, and project moderators need a way to manage the direction of various threads to avoid the big picture from being obscured.
-
-
-Some of the other technical requirements were discussed by some project participants and summarized by Prof. Tao on his blog (lightly edited):
+Some of the other technical requirements were discussed by some project participants and summarized by Prof. Tao on his blog\cite{whats_new_2009} (lightly edited):
 
 \begin{itemize}
 
@@ -189,20 +186,20 @@ Some of the other technical requirements were discussed by some project particip
 \end{itemize}
 
 
-WE note that Sophize provides all the above features except that it doesn't let users look at the versions of documents. We summarize innovative features of the platform below:
+We note that Sophize provides all the above features except that it doesn't yet allow users to look at the previous versions of documents. We summarize innovative features of the platform below:
 
 
 \subsection{Hierarchical Page Organization}
 
-As noted by Prof Gowers, to make sense of the numerous ideas discussed, they need to be organized in a natural hierarchical way. The "proof discovery tree," as Gower calls it, would have a precise approach to the main problem, and each of the subproblems that come up would have its own trees. The leaves of the tree would thus be sub-problems that get solved without division into sub-problems.
+As noted by Prof Gowers, to make sense of the numerous ideas discussed, they need to be organized in a natural hierarchical way. The `proof discovery tree', as Gowers calls it \cite{gowers_weblog_2009}, would have a precise approach to the main problem, and each of the subproblems that come up would have its own trees. The leaves of the tree would thus be sub-problems that get solved without division into sub-problems.
 
 
-Sophize brings the 'Proof-discovery tree' to life by organizing the project using neatly organized wiki-like pages. Pages have a parent-child relationship allowing them to be organized like a tree. Discussion comments can be posted on any page, and moderators can re-arrange them the way they think is best for the project. Moderators are also encouraged to add an overview on each page that would quickly inform readers of the significant ideas that they should know before they start contributing.
+Sophize brings the `Proof-discovery tree' to life by organizing the project using neatly organized wiki-like pages. Pages have a parent-child relationship allowing them to be organized like a tree. Discussion comments can be posted on any page, and moderators can re-arrange them the way they think is best for the project. Moderators are also encouraged to add an overview on each page that would quickly inform readers of the significant ideas that they should be familiar with before they start contributing.
 
 
 \subsection{Comment Summaries}
 
-Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. For example, they can club together multiple comment chains that were dead ends so that each reader doesn't waste their time. Or they could summarize a sub-proof that was arrived at after dozens of comments for future readers.
+Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. For example, they can club together multiple comment chains that were dead ends so that each reader doesn't waste their time. Or to save time of future readers, they could summarize a sub-proof that was arrived at after dozens of comments.
 
 
 \subsection{Sophize Markdown benefits}
@@ -210,17 +207,13 @@ Even after the hierarchical division of comments, some pages can still have a la
 Project collaborators get all the benefits of Sophize Markdown, such as easy linking of existing math content, latex support, and live preview of pages and comments being written or edited.
 
 
-Comments in Sophize are numbered serially (starting with 1 for each collaboration),
-
-each comment can be referenced with the hashtag notation (e.g., `\#3' for the 3rd comment).
-
-Comments in different projects can be references by providing the URI (\#URI/COMMENT\_NUMBER).
+Comments in Sophize are numbered serially (starting with 1 for each collaboration), each comment can be referenced with the hashtag notation (e.g., `\#3' for the 3rd comment). Comments in different projects can be references by providing the URI (\#URI/COMMENT\_NUMBER).
 
 
 
 \subsection{Moderation Tools}
 
-Sophize gives moderators usual moderation tools like spam removal and fine-grained access control to manage participants. In addition, we add a new feature where certain comments can be marked hidden. Often, threads of dozens of comments can be just noise in such discussions because they were based on confused concepts or mistaken assumptions. Such comments should not be marked as spam. By marking such threads as 'hidden,' moderators can ensure that these are not shown by default. But any user can choose to see them if needed.
+Sophize gives moderators usual tools like spam removal and fine-grained access control to manage participants. In addition, we add a new feature where certain comments can be marked hidden. Often, threads of dozens of comments can be just noise because they were based on confused concepts or mistaken assumptions. Such comments should not be marked as spam. By marking such threads as `hidden', moderators can ensure that these are not shown by default. But any user can choose to see them if they wish to.
 
 
 
