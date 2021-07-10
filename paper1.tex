@@ -29,11 +29,11 @@ We extend the markdown language to represent the connections of mathematical obj
 \section{Introduction}
 
 
-Sophize is a novel Mathematics library and discussion platform. Our primary mission is to help our users find existing and discover new proofs of mathematical statements and utilize this knowledge for their work. All mathematical proofs can be seen as directed acyclic graphs of logical arguments that span across a large number of documents and databases. These proofs arise from a variety of foundations such as ZFC, intuitionistic logic and type theory. The arguments used in any proof are considered valid based on varying criteria - most academic mathematics is peer-reviewed, some mathematic proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using as formal system. Thus, aggregating proofs from such a wide variety of sources that utilize a wide variety of foundations and verification criteria is a challenging problem that requires novel knowledge organization techniques and user interfaces needed for such an organization. This article focuses on these user interfaces that help to navigate and understand existing proofs and discover new ones.  Our work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The committee on planning a global library of the mathematical sciences recognized this network is largely unexplored, and formalizing it has tremendous potential to accelerate math research\cite{sciences2014developing}. This introductory video gives an overview of our how structured knowledge can help: \url{https://youtu.be/Wb1JbW9Otek}.
+Sophize is a novel Mathematics library and discussion platform. Our primary mission is to help our users find existing and discover new proofs of mathematical statements and utilize this knowledge for their work. All mathematical proofs can be seen as directed acyclic graphs of logical arguments that span across a large number of documents and databases. These proofs arise from a variety of foundations such as ZFC, intuitionistic logic and type theory. The arguments used in any proof are considered valid based on varying criteria - most academic mathematics is peer-reviewed, some mathematical proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using a formal system. Thus, aggregating proofs from such a wide variety of sources that utilize a wide variety of foundations and verification criteria is a challenging problem that requires novel knowledge organization techniques and user interfaces needed for such an organization. This article focuses on these user interfaces that help to navigate and understand existing proofs and discover new ones.  Our work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The committee on planning a global library of the mathematical sciences recognized this network is largely unexplored, and formalizing it has tremendous potential to accelerate math research\cite{sciences2014developing}. This introductory video gives an overview of how structured knowledge can help: \url{https://youtu.be/Wb1JbW9Otek}.
 
 
 
-In this paper, we first discuss the details of Sophize Markdown, an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, proofs from a wide variety of sources, including formal languages. Then, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when many collaborators have posted a large number of comments. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to develop our interface design. Conveniently, the leaders have publically analyzed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is designed specifically overcome the issues noted by Prof Timothy Gowers \cite{gowers_weblog_2009} and Prof Terence Tao\cite{whats_new_2009}. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
+In this paper, we first discuss the details of Sophize Markdown, an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from a wide variety of sources, including formal languages. Then, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when many collaborators have posted a large number of comments. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to develop our interface design. Conveniently, the leaders have publically analyzed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is designed specifically to overcome the issues noted by Prof Timothy Gowers \cite{gowers_weblog_2009} and Prof Terence Tao\cite{whats_new_2009}. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
 
 
 
@@ -51,7 +51,7 @@ A resource is an abstract concept inherited by all other top-level concepts like
 A URI consists of two parts: a namespace-like identifier called dataset-id, which indicates the data source, and a resource-id that indicates what kind of resource it is along with its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
 
 
-For example, Pythagoras's theorem (\textbf{P}roposition) represented in the Metamath project may have the uri \emph{metamath/\textbf{P}\_pythagoras} and the definition of cone (\textbf{T}erm) extracted from wikipedia may have the uri \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the 'wiki' dataset, cone's definition can be referred simply by \emph{T\_cone}.
+For example, Pythagoras's theorem (\textbf{P}roposition) represented in the Metamath project may have the uri \emph{metamath/\textbf{P}\_pythagoras} and the definition of cone (\textbf{T}erm) extracted from wikipedia may have the uri \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the 'wiki' dataset, cone's definition can be referred to simply by \emph{T\_cone}.
 
 
 \subsection*{Term}
@@ -75,7 +75,7 @@ Markdown is a lightweight markup language for creating formatted text using a pl
 
 \subsection{Parser Extension: Tex Math}
 
-While multiple applications extend markdown to support TeX, there is no standardized syntax specification. However, Pandoc is the most widely tool for converting LaTeX to markdown, and its specification is well documented and tested. Thus, we use their specification for our extension\cite{pandoc}:
+While multiple applications extend markdown to support TeX, there is no standardized syntax specification. However, Pandoc is the most widely used tool for converting LaTeX to markdown, and its specification is well documented and tested. Thus, we use their specification for our extension\cite{pandoc}:
 
 
 \blockquote{Anything between two \$ characters will be treated as TeX math. The opening \$ must have a non-space character immediately to its right, while the closing \$ must have a non-space character immediately to its left, and must not be followed immediately by a digit. Thus, \$20,000 and \$30,000 won’t parse as math. If for some reason you need to enclose text in literal \$ characters, backslash-escape them and they won’t be treated as math delimiters.
@@ -86,7 +86,7 @@ For display math, use \$\$ delimiters. (In this case, the delimiters may be sepa
 
 \subsection{Parser Extension: Resource Links}
 
-This extension allows embedding easily embed links to resources such as terms, propositions, and arguments. Links can be added using the URI, and the following formats are supported:
+This extension allows easily adding links to resources such as terms, propositions, and arguments. Links can be added using the URI, and the following formats are supported:
 
 
 \begin{itemize}
@@ -118,7 +118,7 @@ Fetches the resource and sets the link text to the name of the resource. For ter
 
 \paragraph{EXPAND}
 
-Instead of creating a link, expands the resource in place. For terms and propositions, the definition and the statement are added in place, respectively. For arguments, the premises, conclusion, and the argument text is added in place.
+Instead of creating a link, this option expands the resource in place. For terms and propositions, the definition and the statement are added in place, respectively. For arguments, the premises, conclusion, and the argument text is added in place.
 
 
 \paragraph{OVERLAY\_LINK (default)}
@@ -153,7 +153,7 @@ In formal languages, definitions of terms, statements of propositions, and suppo
 
 \section{Sophize Collaboration Interface}
 
-Sophize collaboration interface is designed to allow multiple researchers to simultaneously discuss multiple approaches to solve the problem of interest. In open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that dissuades even the experts and the highly motivated. This work is primarily influenced by recommendations made by Professor Timothy Gowers and Professor Terence Tao after organizing a few polymath projects. We believe that the interface can aid all collaborations types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
+Sophize collaboration interface is designed to allow multiple researchers to simultaneously discuss multiple approaches to solve the problem of interest. In open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that dissuades even the experts and the highly motivated. This work is primarily influenced by recommendations made by Professor Timothy Gowers and Professor Terence Tao after organizing a few polymath projects. We believe that the interface can aid many collaboration types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
 
 
 \subsubsection*{Requirements}
@@ -194,12 +194,12 @@ We note that Sophize provides all the above features except that it doesn't yet 
 As noted by Prof Gowers, to make sense of the numerous ideas discussed, they need to be organized in a natural hierarchical way. The `proof discovery tree', as Gowers calls it \cite{gowers_weblog_2009}, would have a precise approach to the main problem, and each of the subproblems that come up would have its own trees. The leaves of the tree would thus be sub-problems that get solved without division into sub-problems.
 
 
-Sophize brings the `Proof-discovery tree' to life by organizing the project using neatly organized wiki-like pages. Pages have a parent-child relationship allowing them to be organized like a tree. Discussion comments can be posted on any page, and moderators can re-arrange them the way they think is best for the project. Moderators are also encouraged to add an overview on each page that would quickly inform readers of the significant ideas that they should be familiar with before they start contributing.
+Sophize brings the `Proof-discovery tree' to life by organizing the project using neatly organized wiki-like pages. Pages have a parent-child relationship allowing them to be organized like a tree. Discussion comments can be posted on any page, and moderators can rearrange them the way they think is best for the project. Moderators are also encouraged to add an overview on each page that would quickly inform readers of the significant ideas that they should be familiar with before they start contributing.
 
 
 \subsection{Comment Summaries}
 
-Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. For example, they can club together multiple comment chains that were dead ends so that each reader doesn't waste their time. Or to save time of future readers, they could summarize a sub-proof that was arrived at after dozens of comments.
+Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. For example, they can club together multiple comment chains that are dead ends so that each reader doesn't waste their time. Or to save time for future readers, they could summarize a sub-proof that was arrived at after dozens of comments.
 
 
 \subsection{Sophize Markdown benefits}
