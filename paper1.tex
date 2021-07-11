@@ -33,7 +33,7 @@ Sophize is a novel Mathematics library and discussion platform. Our primary miss
 
 
 
-In this paper, we first discuss the details of Sophize Markdown, an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from a wide variety of sources, including formal languages. Then, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when many collaborators have posted a large number of comments. We studied the nature of collaboration on Polymath projects - massively collaborative online mathematical projects to develop our interface design. Conveniently, the leaders have publically analyzed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is designed specifically to overcome the issues noted by Prof Timothy Gowers \cite{gowers_weblog_2009} and Prof Terence Tao\cite{whats_new_2009}. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
+In this paper, we first discuss the details of Sophize Markdown, an extension of Markdown language. It is convenient enough to be used for a casual discussion of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from a wide variety of sources, including formal languages. Then, we elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making it easy for the participants to understand the current progress even when many collaborators have posted a large number of comments. We studied the nature of collaboration on Polymath projects\cite{polymath_blog} - massively collaborative online mathematical projects to develop our interface design. Conveniently, the leaders have publically analyzed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is designed specifically to overcome the issues noted by Prof Timothy Gowers \cite{gowers_weblog_2009} and Prof Terence Tao\cite{whats_new_2009}. We believe that these features will not only aid large-scale collaborations like Polymath but will also be useful for private collaborations and workshops like AiM.
 
 
 
@@ -73,18 +73,7 @@ An argument is a set of propositions called premises along with a concluding pro
 
 Markdown is a lightweight markup language for creating formatted text using a plain-text editor. Markdown is very widely adopted on the web, and it makes it quite simple to add lists, headers, bold/italic fonts, images, and more. One can choose from several slightly varying markdown specifications. We start with the widely supported CommonMark specification and create extensions that are needed for our requirements. The extensions are implemented using the `markdown-it' \cite{markdown_it} JavaScript parser. The parser for Sophize markdown produces an AST tree. A separate renderer module utilizes the AST tree to create the appropriate HTML or Single Page Application (SPA) libraries. Many of the features described here are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}
 
-\subsection{Parser Extension: Tex Math}
-
-While multiple applications extend markdown to support TeX, there is no standardized syntax specification. However, Pandoc is the most widely used tool for converting LaTeX to markdown, and its specification is well documented and tested. Thus, we use their specification for our extension\cite{pandoc}:
-
-
-\blockquote{Anything between two \$ characters will be treated as TeX math. The opening \$ must have a non-space character immediately to its right, while the closing \$ must have a non-space character immediately to its left, and must not be followed immediately by a digit. Thus, \$20,000 and \$30,000 won’t parse as math. If for some reason you need to enclose text in literal \$ characters, backslash-escape them and they won’t be treated as math delimiters.
-
-
-For display math, use \$\$ delimiters. (In this case, the delimiters may be separated from the formula by whitespace. However, there can be no blank lines between the opening and closing \$\$ delimiters.)}
-
-
-\subsection{Parser Extension: Resource Links}
+\subsection{Embedding structured data}
 
 This extension allows easily adding links to resources such as terms, propositions, and arguments. Links can be added using the URI, and the following formats are supported:
 
@@ -108,7 +97,7 @@ This extension allows easily adding links to resources such as terms, propositio
 
 \subsubsection{Options}
 
-The different resource link options provide different ways to embed a resource in the markdown. These are required to make it convenient for the content creators to provide a rich experience for their readers. The following are most commonly used:
+The different resource link options provide different ways to embed a resource in the markdown. These are required to make it convenient for the content creators to provide a rich experience to their readers. The following are most commonly used:
 
 
 \paragraph{NAME (default)}
@@ -138,30 +127,37 @@ Lower cases the link text. This becomes quite useful when adding a link in the m
 
 \paragraph{SHOW\_TVI (default)}
 
-For propositions only. Adds a truth value icon indicating whether or not there is a proof available for the proposition. Clicking on the icon brings up the proof as a graph of arguments.
-
-
-\paragraph{HIDE\_TVI}
-
-The truth value icon is hidden.
+For propositions only. Adds a truth value icon indicating whether or not there is a proof available for the proposition. Clicking on the icon brings up the proof as a graph of arguments. The HIDE\_TVI option makes sure that the truth value icon is always hidden.
 
 
 \subsection{Formal Language Support}
 
 In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parseable by an external parser. We can convert the externally parsed output into markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a delightful interface, where the user types in the native language, and the final output automatically allows users to deeply explore all concepts than make up the input statement. Currently, this is demonstrated in the Sophize Markdown with the Metamath language.
 
+\subsection{\LaTeX\space Support}
+
+While multiple applications extend markdown to support TeX, there is no standardized syntax specification. However, Pandoc is the most widely used tool for converting LaTeX to markdown, and its specification is well documented and tested. Thus, we use their specification for our extension\cite{pandoc}:
+
+
+\blockquote{Anything between two \$ characters will be treated as TeX math. The opening \$ must have a non-space character immediately to its right, while the closing \$ must have a non-space character immediately to its left, and must not be followed immediately by a digit. Thus, \$20,000 and \$30,000 won’t parse as math. If for some reason you need to enclose text in literal \$ characters, backslash-escape them and they won’t be treated as math delimiters.
+
+
+For display math, use \$\$ delimiters. (In this case, the delimiters may be separated from the formula by whitespace. However, there can be no blank lines between the opening and closing \$\$ delimiters.)}
+
+
+
 
 \section{Sophize Collaboration Interface}
 
-Sophize collaboration interface is designed to allow multiple researchers to simultaneously discuss multiple approaches to solve the problem of interest. In open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that dissuades even the experts and the highly motivated. This work is primarily influenced by recommendations made by Professor Timothy Gowers and Professor Terence Tao after organizing a few polymath projects. We believe that the interface can aid many collaboration types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
+Sophize communication interface is designed to allow multiple researchers to collaboratively solve a problem. In such open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that dissuades even the experts and the highly motivated. We believe that we have created a novel interface that can significantly mitigate this problem. The work is primarily influenced by recommendations made by Professor Timothy Gowers and Professor Terence Tao after organizing a few polymath projects\cite{polymath_blog}. We believe that the interface can aid many collaboration types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
 
 
 \subsubsection*{Requirements}
 
-Helping users make sense of the conversation and allowing them to get up to speed with existing conversation as quickly as possible is perhaps the most important requirement for managing online collaborations. To solve this problem, we need to organize the ideas that get tossed rapidly and summarize the progress. A reader should be able to quickly grasp the current progress, and project moderators need a way to manage the direction of various threads to avoid the big picture from being obscured.
+Helping users make sense of the conversation and allowing them to get up to speed with existing conversation as quickly as possible is perhaps the most important requirement for managing online collaborations. To solve this problem, we need to organize the ideas in an intuitive way  and summarize the progress. A reader should be able to quickly grasp the current progress, and project moderators need a way to manage the direction of various threads to avoid the big picture from being obscured.
 
 
-Some of the other technical requirements were discussed by some project participants and summarized by Prof. Tao on his blog\cite{whats_new_2009} (lightly edited):
+Other technical requirements were discussed by some project participants and summarized by Prof. Tao on his blog\cite{whats_new_2009} (lightly edited):
 
 \begin{itemize}
 
@@ -199,7 +195,7 @@ Sophize brings the `Proof-discovery tree' to life by organizing the project usin
 
 \subsection{Comment Summaries}
 
-Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. For example, they can club together multiple comment chains that are dead ends so that each reader doesn't waste their time. Or to save time for future readers, they could summarize a sub-proof that was arrived at after dozens of comments.
+Even after the hierarchical division of comments, some pages can still have a large number of comments, which would be difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. Comment summaries get embedded in the comment tree as a parent for comments they summarise. For example, they can club together multiple comment chains that are dead ends so that each reader doesn't waste their time. Or to save time for future readers, they could summarize a sub-proof that was arrived at after dozens of comments.
 
 
 \subsection{Sophize Markdown benefits}
@@ -207,13 +203,14 @@ Even after the hierarchical division of comments, some pages can still have a la
 Project collaborators get all the benefits of Sophize Markdown, such as easy linking of existing math content, latex support, and live preview of pages and comments being written or edited.
 
 
-Comments in Sophize are numbered serially (starting with 1 for each collaboration), each comment can be referenced with the hashtag notation (e.g., `\#3' for the 3rd comment). Comments in different projects can be references by providing the URI (\#URI/COMMENT\_NUMBER).
+Comments in Sophize are numbered serially (starting with 1 for each collaboration), each comment can be referenced with the hashtag notation (e.g., `\#3' for the 3rd comment). Comments in an external project can be referenced by providing the project's URI (\#URI/COMMENT\_NUMBER).
+
+Also, we make it extremely easy to extract terms, propositions and proofs from comments. These resources not only help in better understanding of the project, it also helps build Sophize's library.
 
 
+\subsection{Reducing noise}
 
-\subsection{Moderation Tools}
-
-Sophize gives moderators usual tools like spam removal and fine-grained access control to manage participants. We also add a new feature where certain comments can be marked hidden. Often, threads of dozens of comments can be just noise because they were based on confused concepts or mistaken assumptions. Such comments should not be marked as spam. By marking such threads as `hidden', moderators can ensure that these are not shown by default. But any user can choose to see them if they wish to.
+Sophize gives project moderators usual tools like spam removal and fine-grained access control to manage participants. We also add a new feature where certain comments can be marked hidden. Often, threads of dozens of comments can be just noise because they were based on confused concepts or mistaken assumptions. Such comments should not be marked as spam. By marking such threads as `hidden', moderators can ensure that these are not shown by default. But any user can see them if they wish to.
 
 \subsubsection*{Sources}
 Sophize markdown parser and its Angular renderer source code is available with MIT license at \url{https://github.com/Sophize/sophize-md-parser} and \url{https://github.com/Sophize/ngx-sophize-md-renderer}, respectively. The NPM packages for these projects are named `sophize-md-parser' and `ngx-sophize-md-renderer'.
