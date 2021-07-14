@@ -64,7 +64,7 @@ Section 3 presents Sophize markdown as a lightweight interface for representing 
 
 
 \subsection*{Acknowledgements}
-This publication resulted (in part) from research supported by the International Mathematical Union. We would like to thank Patrick Ion and Michael Kohlhase for helping us in organizing our ideas and structuring the content of the paper.
+This publication resulted (in part) from research supported by the International Mathematical Union. The author would like to thank Patrick Ion and Michael Kohlhase for help in organizing our ideas and structuring the content of the paper.
 
 \section{Preliminaries}
 
@@ -125,7 +125,7 @@ There are multiple resource link options to embed a resource in the Markdown. Th
 
 \paragraph{\textbf{Custom text}: A link can also explicitly specify the link text by enclosing it in single quotes.}
 
-The following example shows the above options in use. Note that we assume that the dataset-id of URIs is available from the context and are thus not specified in the URIs.
+The following example shows the above options in use. Note that we assume that the dataset-id of URIs is available from the context and thus not specified in the URIs.
 
 \begin{verbatim}
 #P_cosine_law|UC is a generalization of the #P_pythagorean for all kinds of
@@ -143,7 +143,7 @@ The following example shows the above options in use. Note that we assume that t
 
 \paragraph{\textbf{NAV\_LINK}: We can create a hyperlink to the resource's URL using the using NAV\_LINK option.}
 
-\paragraph{\textbf{NO\_LINK}: NO\_LINK creates a non-clickable element that whose hover text is the URI of the resource.}
+\paragraph{\textbf{NO\_LINK}: NO\_LINK creates a non-clickable element whose hover text is the URI of the resource.}
 
 
 For example, the following Markdown code has all three link types:
@@ -170,7 +170,7 @@ The first element shows `\#wiki/T\_matrix\_multiplication' on mouse-hover. The s
 
 Instead of creating a link, this option expands the resource in place. For terms and propositions, the definition and the statement are added in place, respectively. For arguments, its premises, conclusion, and the argument text is added.
 
-The following is a sample article where we uses re-use concepts and theorems already extracted from multiple sources (say, Wikipedia and the Oxford dictionary):
+The following is a sample article where we re-use concepts and theorems already extracted from multiple sources (say, Wikipedia and the Oxford dictionary):
 
 \begin{verbatim}
 # Conic section
@@ -208,7 +208,7 @@ For propositions, a Truth Value Icon indicating whether or not there is a proof 
 
 \subsection{Formal Language Support}
 
-In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parseable by an external parser. We can convert the externally parsed output into Markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a delightful interface, where the user types in the native language, and the final output automatically allows users to explore all concepts that make up the input statement in depth. Currently, this is demonstrated in the use of Sophize Markdown with the Metamath language.
+In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parseable by an external parser. We can convert the externally parsed output into Markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a convenient interface, where the user types in the native language, and the final output automatically allows users to explore all concepts that make up the input statement in depth. Currently, this is demonstrated in the use of Sophize Markdown with the Metamath language.
 
 \begin{figure}[ht]
 \begin{center}
@@ -230,7 +230,7 @@ The following example summarizes the specification:
 \begin{quote}
 \begin{verbatim} 
 Einstein's most famous equation is $E=mc^2$ but it is his handwritten theory of 
-happiness is that fetched $1.3 million recently. While it may not fetch many \$s, I 
+happiness is what fetched $1.3 million recently. While it may not fetch many \$s, I 
 like the field equations more: $$G_{\mu \nu }+\Lambda g_{\mu \nu }=\kappa T_{\mu \nu }$$
 \end{verbatim}
 \end{quote}
