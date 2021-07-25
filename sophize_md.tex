@@ -19,7 +19,7 @@
 \maketitle
 
 \begin{abstract}
-Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We have extended the Markdown language to represent the connections between mathematical objects that exist across various sources of knowledge. Using the new language, we demonstrated an interactive interface that helps users explore mathematics content on the web. We also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively. This contribution sketches the basic ideas and provides links to some demos of the new functionality.
+Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We have extended the Markdown language to represent the connections between mathematical objects that exist across various sources of knowledge. Using the new language, we showcase an interactive interface that helps users explore mathematics content on the web. We also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively. This contribution sketches the basic ideas and provides links to some demos of the new functionality.
 
 \end{abstract}
 
@@ -35,7 +35,7 @@ Sophize is a novel mathematics library and discussion platform. The author has d
 
 Mathematical proofs are based on a variety of foundations such as ZFC, intuitionistic logic, and type theory. The arguments used in any proof are considered valid or not based on criteria that can vary. Most academic mathematics is peer-reviewed and published, but some mathematical proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using a formal system. 
 
-Sophize combines such an expansive range of proofs into a dense graph of propositions and logical arguments that aggregates knowledge from a several documents and other data sources. We use this graph and combine it with the set of foundations and verifications chosen by each user to create proofs tailored to their needs. This introductory video gives an overview of the platform's offerings: \url{https://youtu.be/Wb1JbW9Otek}.
+Sophize combines such an expansive range of proofs into a dense graph of propositions and logical arguments that aggregates knowledge from several documents and other data sources. We use this graph and combine it with the set of foundations and verifications chosen by each user to create proofs tailored to their needs. This introductory video gives an overview of the platform's offerings: \url{https://youtu.be/Wb1JbW9Otek}.
 
 \begin{figure}[ht]
 \begin{center}
@@ -51,7 +51,7 @@ Hence, we required novel knowledge organization techniques to connect mathematic
 
 \subsubsection*{Mathematics collaborations}
 
-As a discussion platform, Sophize focuses on creating an interface that helps mathematicians discuss mathematics and collaboratively discover new proofs. The existing web platforms and technologies, while useful, are, of course, not tailored for academic mathematical discussions. It becomes very challenging to organize discussions, and participants struggle to keep up with the rapidly evolving ideas. In our current environment, where in-person collaboration opportunities have drastically reduced, aiding mathematicians to work together online can prove to be quite beneficial.
+As a discussion platform, Sophize focuses on creating an interface that helps mathematicians discuss mathematics and collaboratively discover new proofs. The existing web platforms and technologies, while useful, are, of course, not tailored for academic mathematical discussions. It becomes very challenging to organize discussions, and participants struggle to keep up with the rapidly evolving ideas. In our current environment, where in-person collaboration opportunities have drastically reduced due to the ongoing COVID-19 pandemic, aiding mathematicians to work together online can prove to be quite beneficial.
 
 
 \subsubsection*{Contribution}
@@ -60,7 +60,7 @@ In this paper, we present the features of Sophize Markdown, an extension of the 
 
 We then elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making the collaboration more productive and enjoyable by building the right set of technical tools that aid in effective organization and summarization of existing progress.
 
-Section 3 presents Sophize markdown as a lightweight interface for representing math content, and Section 4 discusses its collaboration facilities. Finally, Section 5 concludes the paper.
+Section 3 presents Sophize Markdown as a lightweight interface for representing math content, and Section 4 discusses its collaboration facilities. Finally, Section 5 concludes the paper.
 
 
 \subsection*{Acknowledgements}
@@ -68,28 +68,20 @@ This publication resulted (in part) from research supported by the International
 
 \section{Preliminaries}
 
-\subsection{Sophize's Datamodel}
-Before we describe the Sophize Markdown language, it will be necessary to briefly describe how Sophize models mathematical entities. The data model is published in JSON schema \cite{sophize_datamodel} and popular package managers such as MVN, npm and PyPI. We describe relevant parts of the concepts used here.
+\subsection{Sophize's Data Model}
+\paragraph{Before we describe the Sophize Markdown language, it will be necessary to briefly describe how Sophize models mathematical entities. The data model is published in JSON schema \cite{sophize_datamodel} and popular package managers such as MVN, npm and PyPI. We describe relevant parts of the concepts used here.}
 
-\subsubsection*{Resource}
+\paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.}
 
-A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.
-
-A URI consists of two parts: a namespace-like identifier called its dataset-id, which indicates the data source, and a resource-id that specifies the resource type and its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
+A \textbf{URI} consists of two parts: a namespace-like identifier called its dataset-id, which indicates the data source, and a resource-id that specifies the resource type and its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
 
 For example, the Pythagorean theorem (a \textbf{P}roposition) represented in the Metamath project may have the URI \emph{metamath/\textbf{P}\_pythagorean} and the definition of cone (a \textbf{T}erm) extracted from Wikipedia may have the URI \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the `wiki' dataset, cone's definition can be referred to simply as \emph{T\_cone}.
 
-\subsubsection*{Term}
+\paragraph{A \textbf{term} is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.}
 
-A \textbf{term} is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.
+\paragraph{A \textbf{proposition} is a grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypotheses, lemmas, corollaries, and converses are all classified as propositions.}
 
-\subsubsection*{Proposition}
-
-A \textbf{proposition} is a grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypotheses, lemmas, corollaries, and converses are all classified as propositions.
-
-\subsubsection*{Argument}
-
-An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.
+\paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.}
 
 \subsection{Polymath Projects}
 In order to better understand the nature of online collaborations, we studied the Polymath projects \cite{polymath_blog}, which are massively collaborative online mathematical projects. Conveniently, the project leaders publically analyzed these projects and suggested technical improvements suitable for such collaborations. In fact, a large portion of the interface is designed specifically to overcome the issues noted by Timothy Gowers \cite{gowers_weblog_2009} and Terence Tao \cite{whats_new_2009}.
@@ -204,7 +196,7 @@ A parabola is a \dashuline{symmetrical} open plane curve formed by the intersect
 
 \subsubsection{Status Indicators}
 
-For propositions, a Truth Value Icon indicating whether or not there is a proof is added next to the link. Clicking on the icon brings up the proof graph as shown in figure \ref{proof_tree}. Similarly, an icon is added next to an argument which indicates whether the argument is valid or not. These options can be turned on or off depending on the input and the context. Further details require an in-depth understanding of the Sophize knowledge organization scheme which is not our focus here.
+For propositions, a Truth Value Icon indicating whether or not there is a proof is added next to the link. Clicking on the icon brings up the proof graph as shown in Figure \ref{proof_tree}. Similarly, an icon is added next to an argument which indicates whether the argument is valid or not. These options can be turned on or off depending on the input and the context. Further details require an in-depth understanding of the Sophize knowledge organization scheme which is not our focus here.
 
 \subsection{Formal Language Support}
 
