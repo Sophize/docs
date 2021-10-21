@@ -9,6 +9,8 @@
 \usepackage{lmodern}
 \usepackage[normalem]{ulem}
 
+\newcommand\todo[1]{\textcolor{red}{TODO: #1}}
+
 \title{Sophize Markdown and Collaboration Interface }
 
 \author{ Abhishek Chugh }
@@ -27,15 +29,15 @@ Sophize is a novel mathematics library and discussion platform with a mission to
 
 \vskip 32pt
 
-\section{Introduction}
+\section{Introduction [FROM CICM]}
 
 \subsubsection*{Background: The Sophize Platform}
 
 Sophize is a novel mathematics library and discussion platform. The author has developed the platform over the course of the last two years at \url{https://sophize.org}. Sophize's primary mission is to help users find existing proofs of mathematical statements, to discover new proofs, and to utilize this knowledge in their work. We combine knowledge from multiple resources and have accumulated thousands of definitions, theorems, and proofs from a wide variety of sources, including some published research, the PlanetMath encyclopedia, Wikipedia, and the Metamath formal system \cite{metamath}.
 
-- The goal is rational truth. Three dimensions are consistency, correspondence and values.
+\todo{- The goal is rational truth. Three dimensions are consistency, correspondence and values.}
 
-- In its current iteration, Sophize can modekl vast mnajority (almost all)  of mathematics.
+\todo{- In its current iteration, Sophize can model vast majority (almost all)  of mathematics.}
 
 \subsubsection*{Proofs in Sophize}
 
@@ -53,30 +55,19 @@ Sophize combines such an expansive range of proofs into a dense graph of proposi
 
 This work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The committee on planning a global library of the mathematical sciences recognized that this network is largely unexplored, and formalizing it has tremendous potential to accelerate math research \cite{sciences2014developing}.
 
-Hence, we required novel knowledge organization techniques to connect mathematical entities from such a wide range of formal and informal knowledge sources. And thus, one of the main challenges towards building the Sophize platform was to create a simple way to embed mathematical entities on the web. This is the primary problem that this work addresses.
-
-\subsubsection*{Mathematics collaborations}
-
-As a discussion platform, Sophize focuses on creating an interface that helps mathematicians discuss mathematics and collaboratively discover new proofs. The existing web platforms and technologies, while useful, are, of course, not tailored for academic mathematical discussions. It becomes very challenging to organize discussions, and participants struggle to keep up with the rapidly evolving ideas. In our current environment, where in-person collaboration opportunities have drastically reduced due to the ongoing COVID-19 pandemic, aiding mathematicians to work together online can prove to be quite beneficial.
+Hence, we required novel knowledge organization techniques to connect mathematical entities from such a wide range of formal and informal knowledge sources. And thus, one of the main challenges towards building the Sophize platform was to create a simple way to embed mathematical entities on the web. \todo{Explain and summarize the problem statement}
 
 
 \subsubsection*{Contribution}
-
-In this paper, we present the features of Sophize Markdown, an extension of the Markdown language. It is convenient enough to be used for casual discussions of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from various sources, including formal systems. It thus plays an integral role in the two problems that we have mentioned above.
-
-We then elaborate on the communication interface designed to help mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on making the collaboration more productive and enjoyable by building the right set of technical tools that aid in effective organization and summarization of existing progress.
-
-Section 3 presents Sophize Markdown as a lightweight interface for representing math content, and Section 4 discusses its collaboration facilities. Finally, Section 5 concludes the paper.
-
+\todo{summarize sections. section 3 does X, section 4 does Y etc.}
 
 \subsection*{Acknowledgements}
 This publication resulted (in part) from research supported by the International Mathematical Union. The author would like to thank Patrick Ion and Michael Kohlhase for help in organizing our ideas and structuring the content of the paper.
 
 \section{Sophize's Knowledge Organization Scheme}
-For math logical consistency is the sole criteria for truth..
-Thus, as a math library, Sophize models mathematical knowledge using logical arguments. 
+For math, logical consistency is the sole criteria for truth. Thus, as a math library, Sophize models mathematical knowledge using logical arguments. 
 
-The various concepts used for orgnizing knowledge logically are described below. These concepts have been modelled in JSON schema \cite{sophize_datamodel} and published for popular programming language such as Java (MVN), Javascript (npm) and Python (PyPI). 
+The various concepts used for organizing knowledge logically are described below. These concepts have been modelled in JSON schema \cite{sophize_datamodel} and published for popular programming language such as Java (MVN), Javascript (npm) and Python (PyPI). 
 
 \paragraph{A \textbf{term} is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.}
 
@@ -84,9 +75,7 @@ The various concepts used for orgnizing knowledge logically are described below.
 
 \paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.}
 
-
-
-\paragraph{While modelling the concepts an abstract concept for ease of implementation. A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.}
+\paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.}
 
 A \textbf{URI} consists of two parts: a namespace-like identifier called its dataset-id, which indicates the data source, and a resource-id that specifies the resource type and its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
 
@@ -97,34 +86,97 @@ The same URI scheme will be used in this paper to refer to various terms, propos
 There are a couple more concepts that we will describe at later in the paper.
 
 
+\subsection{Validity of arguments}
+Validity of an argument is, in principle, objectively verifiable. A formally defined logistic systems have a mechanical procedure to verify validity arguments.
+
+However, mathematics only utilizes a tiny portion formally verifiable arguments. Most mathematics is verified via peer review, some of this knowledge is curated by experts in books, encyclopaedias. The claim of validity of proofs (arguments) is judged based on the various parameters such as academic standing of the claimant, reputation of the peer reviewing journal, the history of errors of the book or encyclopedia containing them, etc. Clearly, this criteria is subjective and can vary to some extent for each individual.
+
+Sophize doesn't promote or endorse and such criteria. Instead, it allows its users to choose the criteria they believe in. A validity criteria is modelled as a proposition and each argument has one such validity criteria associated with it.
+
+Some sample validity criteria:
+1. Formally verified using 3 independent COQ verifiers.
+2. Peer reviewed by XYZ journal
+3. Published on Wikipedia.
+4. Claimed by someone.
+
+For easily managing validity criteria, the relationships between validity criteria are also maintained using arguments.
+Eg. published in journal with score more than 0.67 $\rightarrow$ published in Annals of Mathematics
+
+
+\todo{Q. Who has the time to setup belief sets? How does Sophize make it 
+convenient.}
+
+
 \subsection{Belief sets}
 
 In Sophize, a proposition is claimed to be true if it is concluded by a valid argument and the premises of the argument are also true.
 
-Of course this means that we need to start with some propositions that are assumed to be true. Traditionally, these are mathematical axioms and are considered to true because they are self-evident. However, there is no criteria to define if a propositions if self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no criteria to choose one theory over another when trying to assert a proposition's truth/falsity.
+Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. However, there is no clear criteria to claim if a propositions is self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no criteria to choose one theory over another when trying to assert a proposition's truth/falsity.
 
-Thus, Sophize allows any set of propositions to be considered true without evidence. Such a set of propositions is called a belief set. Thus, the truth-value of a proposition is only defined within a belief set - it doesn't have any concept of universal truth. 
+Thus, Sophize allows any set of propositions to be considered true without evidence. Such a set of propositions is called a belief set. Thus, the truth-value of a proposition is only defined within a belief set - there is no notion of of absolute or universal truth. 
 
-The same argument may be utilized by multiple belief sets to compute truth values.
+Propositions representing argument validity criteria are also part of belief sets. All propositions that are considered to be true in a belief set without proof are called `unsupported propositions'.
 
-Computing of truth values in a belief set is thus a simple recursive graph algorithm. Sophize computes truth values for all its belief sets.
-
-\subsection{Validity of arguments}
-Validity of an argument is, in principle, objectively verifiable. A formally defined logistic systems have a mechanical procedure to verify validity arguments.
-
-However, mathematics only utilizes a tiny portion formally verifiable arguments. Most mathematics is verifies via peer review, some with curated by experts.
-
-
+Computing of truth values in a belief set is thus a simple recursive graph algorithm as explained in the section below. Sophize computes truth values for all its belief sets.
 
 \subsection{Tracking Inconsistency}
-If a propositions and its negation is proved within a belief set is inconsistent. As proved by the principle of explosion, any propositions can be proved from such a contradiction. Thus making the claim of truth of any proposition practically worthless.
+If a propositions and its negation is proved within a belief set is inconsistent. Due to principle of explosion, any propositions can be proved from such a contradiction. Thus making the claim of truth of any proposition practically worthless.
 
 Thus it is important to track and report contradictions in a belief set. Thus Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negation of propositions.
 
 When a proposition and its negation are proven, the system reports such contradictions for every belief set.
 
+\subsection{Argument Graph}
+A proposition is considered true if it is claimed by a sound argument. An argument is considered sound if it is valid and its premises are true. Also, as explained in the section above, the validity criteria of an argument is modelled as just another premise. Thus, the relationship between all propositions and arguments can be represented with a simple graph. The following figure shows the different types of nodes and edges in such a graph
 
-\section{Sophize Markdown}
+1. Nodes - propositions and arguments
+2. Edges - premise to argument and argument to conclusion
+
+\subsection{Truth value computation}
+
+Using the argument graph, we can find truth values of every proposition in a belief set. Starting with the unsupported proposition of the belief set, computing truth values can be done using a simple recursive algorithm. The output of this algorithm is another graph, that we call proof graph, that has a proof for all the propositions it contains. For each proposition, a proof in the form of DAG of arguments (starting with unsupported propositions) can be trivially extracted from this proof graph.
+
+Note that an argument graph combines with different belief sets to generate different proof graphs. The same argument may be utilized in multiple belief sets.
+
+\todo{alternate arguments, proofs for same proposition}
+
+\subsection{Translations}
+\todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
+
+There is no good way to claim equivalency of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
+
+
+Eg. ZFC (informal) + ZFC (metamath) + Jensen's Inequality (metamath) + validity criteria (translation feels right to metamath group) $\rightarrow$ 
+Jensen's Inequality (informal)
+
+But, can represent translations manually using arguments. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. Again, a user can choose not to accept this criteria in which case, these translations will not be used in the generating proof graphs.
+
+
+Thus we can create proof graphs that have arguments from different languages.
+
+\subsection{Uses}
+Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
+
+Conjectural knowledge (Reimann hypothesis). 
+Practical utility of conjectural knowledge - eg. a lot of infromation security systems assume  P not NP)
+
+\subsubsection{Other Notes}
+\todo{How much math can be represented and Sophize's limitations. Eg. three valued logic}
+
+
+\section{Proof Generating Automata}
+A lot of mathematical knowledge is computed. Computations can be seen as algorithms that finding propositions based on some input.
+
+The computation 15+16 results in the value 31. We see this as 
+
+
+\section{Other Engineering challenges}
+\todo{copyright/access management}
+\todo{efficient computation and storage of proof graphs}
+\todo{reading from disk }
+
+
+\section{Sophize Markdown[FROM CICM]}
 
 Markdown is a lightweight markup language for creating formatted text using a plain-text editor. Markdown is very widely adopted on the web, and it makes it quite simple to add lists, headers, bold or italic fonts, images, and more. One can choose from several slightly varying Markdown specifications. We start with the widely supported CommonMark specification and create extensions for the features that we need. The extensions are implemented using the `markdown-it' \cite{markdown_it} JavaScript parser. The parser for Sophize Markdown produces an abstract syntax tree (AST). A separate renderer module utilizes the AST tree to create the appropriate HTML or Single Page Application (SPA) libraries. Many of the features of Sophize Markdown are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}
 
@@ -273,7 +325,7 @@ what fetched \$1.3 million recently. While it may not fetch many \$s, I like the
 equations more: $$G_{\mu \nu }+\Lambda g_{\mu \nu }=\kappa T_{\mu \nu }$$
 \end{mdframed}
 
-\section{Sophize Collaboration}
+\section{Sophize Collaboration [From CICM]}
 
 Sophize's communication interface is designed to allow multiple researchers to collaboratively solve a problem. In such open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that can dissuade even the experts and the highly motivated. We believe that we have created a novel interface that can significantly mitigate this problem. The work is primarily influenced by recommendations made by Timothy Gowers and Terence Tao after organizing several Polymath projects \cite{polymath_blog}. We believe that the interface can aid many collaboration types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a Polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
 
