@@ -23,23 +23,33 @@
 \maketitle
 
 \begin{abstract}
-Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present a Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered that platform to aggregate knowledge from sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
+[FROM CICM] Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present a Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered that platform to aggregate knowledge from sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
 
 \end{abstract}
 
 \vskip 32pt
 
-\section{Introduction [FROM CICM]}
+\section{Introduction}
 
 \subsubsection*{Background: The Sophize Platform}
 
+- The goal is rational truth. Three dimensions are consistency, correspondence and values.
+
+- No hidden assumptions. Should have clear answer to every question of the form `why do you believe X'.
+
+- In its current iteration, Sophize implements consistency. Knowledge represented by manually and automated generation of arguments. Can model vast majority (almost all) of mathematics.
+
+- This gives you a way to create (consistency enforced) models. Next step is to see how accurately these models represent (parts of) the World. That involves quantifying correspondence of observations with the predictions made by the theories.
+
+- And finally, you need model individual, institutional, and societal values to claim the truth of `ought statements' like `I should wear a mask' or `Masks should be mandated'.
+
+- These starting beliefs (axioms, principles, laws, assumptions) and values are a way to model our belief systems. There are no absolutes, each belief system results in a different rational truth.
+
+
+
+\subsubsection*{Proofs in Sophize  [FROM CICM]}
 Sophize is a novel mathematics library and discussion platform. The author has developed the platform over the course of the last two years at \url{https://sophize.org}. Sophize's primary mission is to help users find existing proofs of mathematical statements, to discover new proofs, and to utilize this knowledge in their work. We combine knowledge from multiple resources and have accumulated thousands of definitions, theorems, and proofs from a wide variety of sources, including some published research, the PlanetMath encyclopedia, Wikipedia, and the Metamath formal system \cite{metamath}.
 
-\todo{- The goal is rational truth. Three dimensions are consistency, correspondence and values.}
-
-\todo{- In its current iteration, Sophize can model vast majority (almost all)  of mathematics.}
-
-\subsubsection*{Proofs in Sophize}
 
 Mathematical proofs are based on a variety of foundations such as ZFC, intuitionistic logic, and type theory. The arguments used in any proof are considered valid or not based on criteria that can vary. Most academic mathematics is peer-reviewed and published, but some mathematical proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using a formal system. 
 
@@ -61,12 +71,13 @@ Hence, we required novel knowledge organization techniques to connect mathematic
 \subsubsection*{Contribution}
 \todo{summarize sections. section 3 does X, section 4 does Y etc.}
 
-\subsection*{Acknowledgements}
+\subsection*{Acknowledgements [FROM CICM]}
 This publication resulted (in part) from research supported by the International Mathematical Union. The author would like to thank Patrick Ion and Michael Kohlhase for help in organizing our ideas and structuring the content of the paper.
 
 \section{Sophize's Knowledge Organization Scheme}
 For math, logical consistency is the sole criteria for truth. Thus, as a math library, Sophize models mathematical knowledge using logical arguments. 
 
+\subsection{Core concepts [FROM CICM]}
 The various concepts used for organizing knowledge logically are described below. These concepts have been modelled in JSON schema \cite{sophize_datamodel} and published for popular programming language such as Java (MVN), Javascript (npm) and Python (PyPI). 
 
 \paragraph{A \textbf{term} is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.}
@@ -91,15 +102,19 @@ Validity of an argument is, in principle, objectively verifiable. A formally def
 
 However, mathematics only utilizes a tiny portion formally verifiable arguments. Most mathematics is verified via peer review, some of this knowledge is curated by experts in books, encyclopaedias. The claim of validity of proofs (arguments) is judged based on the various parameters such as academic standing of the claimant, reputation of the peer reviewing journal, the history of errors of the book or encyclopedia containing them, etc. Clearly, this criteria is subjective and can vary to some extent for each individual.
 
-Sophize doesn't promote or endorse and such criteria. Instead, it allows its users to choose the criteria they believe in. A validity criteria is modelled as a proposition and each argument has one such validity criteria associated with it.
+Sophize doesn't promote or endorse any criteria. Instead, it allows its users to choose the criteria they believe in. A validity criteria is modelled as a proposition and each argument has one such validity criteria associated with it.
 
 Some sample validity criteria:
 1. Formally verified using 3 independent COQ verifiers.
+
 2. Peer reviewed by XYZ journal
+
 3. Published on Wikipedia.
+
 4. Claimed by someone.
 
-For easily managing validity criteria, the relationships between validity criteria are also maintained using arguments.
+For easily managing validity criteria, the relationships between validity criteria are also maintained using argument like dependency graphs.
+
 Eg. published in journal with score more than 0.67 $\rightarrow$ published in Annals of Mathematics
 
 
@@ -109,7 +124,7 @@ convenient.}
 
 \subsection{Belief sets}
 
-In Sophize, a proposition is claimed to be true if it is concluded by a valid argument and the premises of the argument are also true.
+In Sophize, a proposition is true if it is concluded by a valid argument and the premises of the argument are also true.
 
 Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. However, there is no clear criteria to claim if a propositions is self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no criteria to choose one theory over another when trying to assert a proposition's truth/falsity.
 
@@ -130,6 +145,7 @@ When a proposition and its negation are proven, the system reports such contradi
 A proposition is considered true if it is claimed by a sound argument. An argument is considered sound if it is valid and its premises are true. Also, as explained in the section above, the validity criteria of an argument is modelled as just another premise. Thus, the relationship between all propositions and arguments can be represented with a simple graph. The following figure shows the different types of nodes and edges in such a graph
 
 1. Nodes - propositions and arguments
+
 2. Edges - premise to argument and argument to conclusion
 
 \subsection{Truth value computation}
@@ -143,7 +159,7 @@ Note that an argument graph combines with different belief sets to generate diff
 \subsection{Translations}
 \todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
 
-There is no good way to claim equivalency of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
+There is no good way to claim equivalence of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
 
 
 Eg. ZFC (informal) + ZFC (metamath) + Jensen's Inequality (metamath) + validity criteria (translation feels right to metamath group) $\rightarrow$ 
@@ -161,19 +177,62 @@ Conjectural knowledge (Reimann hypothesis).
 Practical utility of conjectural knowledge - eg. a lot of infromation security systems assume  P not NP)
 
 \subsubsection{Other Notes}
-\todo{How much math can be represented and Sophize's limitations. Eg. three valued logic}
+\todo{What criteria are met based on the 2013 report}
+
+\todo{How much math can be represented. Eg. three valued logic}
+
+\todo{Sophize's limitations. In "Potential Value of a
+Digital Mathematics Library" in 2013 report. Sophize offers no way to more easily find analogies or weaker forms of reasoning like “If A is true, then B is true. B is true; therefore, A becomes more plausible.” }
 
 
-\section{Proof Generating Automata}
-A lot of mathematical knowledge is computed. Computations can be seen as algorithms that finding propositions based on some input.
+\section{Proof Generating Automata (PGA)}
+A lot of mathematical knowledge is computed. Computation machines (calulators, algebras) can be seen as performing the following tasks: 
+1. parsing the input into a language that can represent math formulae. 
+2. Finding and outputting an equivalent form of the formula.
 
-The computation 15+16 results in the value 31. We see this as 
+Thus, their focus is not on finding the proof but only finding the equivalent (simplified) representation of the input formula. (Although many computer algebras do show the steps of the computation.)
+
+With Sophize, the focus instead is to generate proofs of the input propositions. However, Sophize machines can also have the capability to perform tasks 1 and 2, mentioned above.
+
+\subsection{'Active' PGA}
+As with other parts of Sophize, the output of an PGA is not taken for granted. Each automata specifies the premises (assumptions) that it uses to generate its proof. In addition, an automata may also delegate parts of proofs to another automata. These automata must also be specified. 
+
+An automata is considered 'active' in a belief set if:
+1) all of its premises are true
+2) all the automata it delegates-to are active.
+
+As with an argument, one or more premises is used to indicate the validity of the automata (Eg. tested by X, verified by some committee, another program etc). Thus, to be considered active in a belief set, the PGA must have a verification criteria that matches the belief set's requirements. 
+
+\subsection{PGA response}
+A PGA receives as a proposition as an input. The output of a PGA has the following components:
+1. Truth value of the proposition.
+2. The proof of the propositions (or its negation) as a DAG of arguments generated by the PGA. 
+
+Note that unlike other propositions, arguments on Sophzie these are not stored on disk but do have a temporary URI specified in a slightly different format. The leaves of the DAG can have two kinds of arguments:
+1. Arguments were the premises are limited to the premises of the PGA.
+2. Special 'Arguments' that indicate that the generation of the remaining proof must be delegated to another PGA.
+
+dealing with large proofs: delegate to self after generating (say 100) arguments.
+
+- (calulator like usage) - sometimes you don't care about proof just want to find what 157+346 is. You can set the fetch\_proof flag to `false' and `parse\_lenient' to 'true' in the request to the PGA. Saves computation. 
+
+\subsection{Implementing a PGA}
+It is the responsibility of the PGA to parse the input, and optionally do the computation and proof generation. The sophize platform merely forwards the request to the PGA and performs some sanity checks on the output.
+
+Any http server that can process the proof requests can be easily plugged in to Sophize. The registration is done in minutes and just requires just the specifying the address of the server to the Sophize's administrator. One server can implement multiple PGAs.
+
+
+\subsection{Materializing results}
+
+Sophize allows saving the fact that a machine has returned a valid proof for a proposition (not the actual proof which can be quite large). Then this proposition can be used in further proofs without the need to invoke the proof generation every time. The proof, of course, can be requested by the users whenever required.
 
 
 \section{Other Engineering challenges}
 \todo{copyright/access management}
+
 \todo{efficient computation and storage of proof graphs}
-\todo{reading from disk }
+
+\todo{ storing and reading data in disk/GitHub like repo }
 
 
 \section{Sophize Markdown[FROM CICM]}
