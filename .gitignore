@@ -10,12 +10,14 @@
 *.fot
 *.cb
 *.cb2
+*.xmpdata
 .*.lb
 
 ## Intermediate documents:
 *.dvi
 *.xdv
 *-converted-to.*
+*.abs
 # these rules might exclude image files for figures etc.
 # *.ps
 # *.eps
