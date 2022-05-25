@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-[FROM CICM] Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present a Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered that platform to aggregate knowledge from sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
+Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered a platform to aggregate knowledge from multiple sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
 
 \end{abstract}
 
@@ -71,22 +71,18 @@ Hence, we required novel knowledge organization techniques to connect mathematic
 \subsubsection*{Contribution}
 \todo{summarize sections. section 3 does X, section 4 does Y etc.}
 
-\subsection*{Acknowledgements [FROM CICM]}
-This publication resulted (in part) from research supported by the International Mathematical Union. The author would like to thank Patrick Ion and Michael Kohlhase for help in organizing our ideas and structuring the content of the paper.
 
 \section{Sophize's Knowledge Organization Scheme}
-For math, logical consistency is the sole criteria for truth. Thus, as a math library, Sophize models mathematical knowledge using logical arguments. 
+At its core, Sophize's approach is to simply keep track of all arguments in favour or against any proposition. Use of arguments is the common factor amongst all mathematical (and scientific) knowledge. We use this fact to unify knowledge from multiple sources in a meaningful way as described below.
 
-\subsection{Core concepts [FROM CICM]}
+We use the set of all known arguments to track knowledge from a variety of foundational theory. For theoretical knowledge, i.e., knowledge that doesn't involve empirical data, the primary criteria of validity is internal (logical) consistency. Thus, for each foundational theory (for every belief set to be precise), we also keep track of any contradictions that arise from those foundations.
+
+The following subsections will introduce concepts that will be 
+
+\subsection{Core concepts}
 The various concepts used for organizing knowledge logically are described below. These concepts have been modelled in JSON schema \cite{sophize_datamodel} and published for popular programming language such as Java (MVN), Javascript (npm) and Python (PyPI). 
 
-\paragraph{A \textbf{term} is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.}
-
-\paragraph{A \textbf{proposition} is a grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypotheses, lemmas, corollaries, and converses are all classified as propositions.}
-
-\paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.}
-
-\paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.}
+\paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, arguments, and belief sets. Each resource has a URI and contains fields such as search tags and citations.}
 
 A \textbf{URI} consists of two parts: a namespace-like identifier called its dataset-id, which indicates the data source, and a resource-id that specifies the resource type and its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
 
@@ -94,8 +90,48 @@ For example, the Pythagorean theorem (a \textbf{P}roposition) represented in the
 
 The same URI scheme will be used in this paper to refer to various terms, propositions, arguments, etc.
 
-There are a couple more concepts that we will describe at later in the paper.
+\paragraph{A \textbf{term} is a clearly defined entity that can be used to make up a valid proposition. It can be a mathematical object, operator, symbol, data structure, algorithm, or even a person. `Meaningless' primitives in formal theories are also categorized as terms.}
 
+\paragraph{A \textbf{proposition} is a grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypotheses, lemmas, corollaries, and converses are all classified as propositions.}
+
+\paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.}
+
+Sophize's notions of \textbf{belief sets} and \textbf{proof-generating machine} is described later in this section.
+
+\subsection{Argument Graph}
+An argument can be seen as a simple graph (see Figure \ref{argument}) with two types of nodes - (a) a single node representing the argument itself and (b) a set of proposition nodes representing the argument's conclusion and premises. The edge of this graph are directed and go from (a) premise nodes to argument and (b) argument node to conclusion node.
+
+\begin{figure}[ht]
+\begin{center}
+\fbox{\includegraphics[height=4cm]{argument}}
+\caption{An argument represented as a graph.}
+\label{argument}
+\end{center}
+\end{figure}
+
+A set of arguments will can thus be represented as a single graph that we call an \textbf{argument graph}.
+
+\begin{figure}[ht]
+\begin{center}
+\fbox{\includegraphics[height=7cm]{argument_graph}}
+\caption{A set of arguments forming an argument graph.}
+\label{argument_graph}
+\end{center}
+\end{figure}
+
+A proposition is considered true if it is claimed by a sound argument. An argument is considered sound if it is valid and its premises are true. Also, as explained in the section above, the validity criteria of an argument is modelled as just another premise. Thus, the relationship between all propositions and arguments can be represented with a simple graph. The following figure shows the different types of nodes and edges in such a graph
+
+1. Nodes - propositions and arguments
+
+2. Edges - premise to argument and argument to conclusion
+
+\subsection{Truth value computation}
+
+Using the argument graph, we can find truth values of every proposition in a belief set. Starting with the unsupported proposition of the belief set, computing truth values can be done using a simple recursive algorithm. The output of this algorithm is another graph, that we call proof graph, that has a proof for all the propositions it contains. For each proposition, a proof in the form of DAG of arguments (starting with unsupported propositions) can be trivially extracted from this proof graph.
+
+Note that an argument graph combines with different belief sets to generate different proof graphs. The same argument may be utilized in multiple belief sets.
+
+\todo{alternate arguments, proofs for same proposition}
 
 \subsection{Validity of arguments}
 Validity of an argument is, in principle, objectively verifiable. A formally defined logistic systems have a mechanical procedure to verify validity arguments.
@@ -141,21 +177,6 @@ Thus it is important to track and report contradictions in a belief set. Thus So
 
 When a proposition and its negation are proven, the system reports such contradictions for every belief set.
 
-\subsection{Argument Graph}
-A proposition is considered true if it is claimed by a sound argument. An argument is considered sound if it is valid and its premises are true. Also, as explained in the section above, the validity criteria of an argument is modelled as just another premise. Thus, the relationship between all propositions and arguments can be represented with a simple graph. The following figure shows the different types of nodes and edges in such a graph
-
-1. Nodes - propositions and arguments
-
-2. Edges - premise to argument and argument to conclusion
-
-\subsection{Truth value computation}
-
-Using the argument graph, we can find truth values of every proposition in a belief set. Starting with the unsupported proposition of the belief set, computing truth values can be done using a simple recursive algorithm. The output of this algorithm is another graph, that we call proof graph, that has a proof for all the propositions it contains. For each proposition, a proof in the form of DAG of arguments (starting with unsupported propositions) can be trivially extracted from this proof graph.
-
-Note that an argument graph combines with different belief sets to generate different proof graphs. The same argument may be utilized in multiple belief sets.
-
-\todo{alternate arguments, proofs for same proposition}
-
 \subsection{Translations}
 \todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
 
@@ -174,7 +195,11 @@ Thus we can create proof graphs that have arguments from different languages.
 Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
 
 Conjectural knowledge (Reimann hypothesis). 
+
 Practical utility of conjectural knowledge - eg. a lot of infromation security systems assume  P not NP)
+
+Proof tailored to needs. Proof graph can be easily converted to prose too.
+
 
 \subsubsection{Other Notes}
 \todo{What criteria are met based on the 2013 report}
