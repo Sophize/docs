@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered a platform to aggregate knowledge from multiple sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
+[FROM CICM] Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present a Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety of proofs. With this knowledge organization scheme at its core, we have engineered that platform to aggregate knowledge from several sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath. Furthermore, it allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found in various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
 
 \end{abstract}
 
@@ -94,9 +94,9 @@ The same URI scheme will be used in this paper to refer to various terms, propos
 
 \paragraph{A \textbf{proposition} is a grammatically valid statement that can be either true or false. Axioms, theorems, conjectures, hypotheses, lemmas, corollaries, and converses are all classified as propositions.}
 
-\paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen as a directed graph of arguments and propositions.}
+\paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen here as a directed graph of arguments and propositions.}
 
-Sophize's notions of \textbf{belief sets} and \textbf{proof-generating machine} is described later in this section.
+\paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.}
 
 \subsection{Argument Graph}
 An argument can be seen as a simple graph (see Figure \ref{argument}) with two types of nodes - (a) a single node representing the argument itself and (b) a set of proposition nodes representing the argument's conclusion and premises. The edge of this graph are directed and go from (a) premise nodes to argument and (b) argument node to conclusion node.
@@ -134,22 +134,23 @@ Note that an argument graph combines with different belief sets to generate diff
 \todo{alternate arguments, proofs for same proposition}
 
 \subsection{Validity of arguments}
-Validity of an argument is, in principle, objectively verifiable. A formally defined logistic systems have a mechanical procedure to verify validity arguments.
+Validity of an argument is, in principle, objectively verifiable. Formally defined logistic systems have a mechanical procedure to verify validity arguments.
 
-However, mathematics only utilizes a tiny portion formally verifiable arguments. Most mathematics is verified via peer review, some of this knowledge is curated by experts in books, encyclopaedias. The claim of validity of proofs (arguments) is judged based on the various parameters such as academic standing of the claimant, reputation of the peer reviewing journal, the history of errors of the book or encyclopedia containing them, etc. Clearly, this criteria is subjective and can vary to some extent for each individual.
+However, mathematics only utilizes a tiny portion of formally verifiable arguments. Most mathematics is verified via peer review, some of this knowledge is curated by experts in books, encyclopaedias. The claim of validity of proofs (arguments) is judged based on the various parameters such as academic standing of the claimant, reputation of the peer reviewing journal, the history of errors of the book or encyclopedia containing them, etc. Clearly, these criteria are subjective and can vary to some extent for each individual.
 
-Sophize doesn't promote or endorse any criteria. Instead, it allows its users to choose the criteria they believe in. A validity criteria is modelled as a proposition and each argument has one such validity criteria associated with it.
+Sophize doesn't promote or endorse any criteria. Instead, it allows its users to choose the criteria they believe in. A validity criterion is modelled as a proposition and each argument has one such validity criterion associated with it.
 
 Some sample validity criteria:
+
 1. Formally verified using 3 independent COQ verifiers.
 
 2. Peer reviewed by XYZ journal
 
 3. Published on Wikipedia.
 
-4. Claimed by someone.
+4. Claimed by Maryam Gauss.
 
-For easily managing validity criteria, the relationships between validity criteria are also maintained using argument like dependency graphs.
+To easily manage validity criteria, the relationships between validity criteria are also maintained using argument like dependency graphs.
 
 Eg. published in journal with score more than 0.67 $\rightarrow$ published in Annals of Mathematics
 
@@ -160,9 +161,9 @@ convenient.}
 
 \subsection{Belief sets}
 
-In Sophize, a proposition is true if it is concluded by a valid argument and the premises of the argument are also true.
+In Sophize, a proposition is true if it is the conclusion of a valid argument and the premises of the argument are also true.
 
-Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. However, there is no clear criteria to claim if a propositions is self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no criteria to choose one theory over another when trying to assert a proposition's truth/falsity.
+Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no universal criteria to choose one theory over another when trying to assert a proposition's truth/falsity.
 
 Thus, Sophize allows any set of propositions to be considered true without evidence. Such a set of propositions is called a belief set. Thus, the truth-value of a proposition is only defined within a belief set - there is no notion of of absolute or universal truth. 
 
@@ -171,9 +172,9 @@ Propositions representing argument validity criteria are also part of belief set
 Computing of truth values in a belief set is thus a simple recursive graph algorithm as explained in the section below. Sophize computes truth values for all its belief sets.
 
 \subsection{Tracking Inconsistency}
-If a propositions and its negation is proved within a belief set is inconsistent. Due to principle of explosion, any propositions can be proved from such a contradiction. Thus making the claim of truth of any proposition practically worthless.
+If a propositions and its negation is proved within a belief set, it is inconsistent. Due to principle of explosion, any propositions can be proved from such a contradiction. Thus making the claim of truth of any proposition practically worthless.
 
-Thus it is important to track and report contradictions in a belief set. Thus Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negation of propositions.
+Thus, it is important to track and report contradictions in a belief set. So, Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negations of propositions.
 
 When a proposition and its negation are proven, the system reports such contradictions for every belief set.
 
@@ -186,7 +187,7 @@ There is no good way to claim equivalence of propositions across different forma
 Eg. ZFC (informal) + ZFC (metamath) + Jensen's Inequality (metamath) + validity criteria (translation feels right to metamath group) $\rightarrow$ 
 Jensen's Inequality (informal)
 
-But, can represent translations manually using arguments. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. Again, a user can choose not to accept this criteria in which case, these translations will not be used in the generating proof graphs.
+But, we can represent translations manually using arguments. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. Again, a user can choose not to accept such criteria. In that case, these translations will not be used in the generating proof graphs.
 
 
 Thus we can create proof graphs that have arguments from different languages.
@@ -194,12 +195,9 @@ Thus we can create proof graphs that have arguments from different languages.
 \subsection{Uses}
 Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
 
-Conjectural knowledge (Reimann hypothesis). 
-
-Practical utility of conjectural knowledge - eg. a lot of infromation security systems assume  P not NP)
-
+Conjectural knowledge (Riemann hypothesis). 
+Practical utility of conjectural knowledge - eg. a lot of information security systems assume "P is not NP"
 Proof tailored to needs. Proof graph can be easily converted to prose too.
-
 
 \subsubsection{Other Notes}
 \todo{What criteria are met based on the 2013 report}
@@ -220,29 +218,31 @@ Thus, their focus is not on finding the proof but only finding the equivalent (s
 With Sophize, the focus instead is to generate proofs of the input propositions. However, Sophize machines can also have the capability to perform tasks 1 and 2, mentioned above.
 
 \subsection{'Active' PGA}
-As with other parts of Sophize, the output of an PGA is not taken for granted. Each automata specifies the premises (assumptions) that it uses to generate its proof. In addition, an automata may also delegate parts of proofs to another automata. These automata must also be specified. 
+As with other parts of Sophize, the validity of the output of a PGA is not taken for granted. Each automata specifies the premises (assumptions) that it uses to generate its proof. In addition, an automata may also delegate parts of proofs to another automata. These automata must also be specified. 
 
 An automata is considered 'active' in a belief set if:
 1) all of its premises are true
 2) all the automata it delegates-to are active.
 
-As with an argument, one or more premises is used to indicate the validity of the automata (Eg. tested by X, verified by some committee, another program etc). Thus, to be considered active in a belief set, the PGA must have a verification criteria that matches the belief set's requirements. 
+As with an argument, one or more premises is used to indicate the validity of the automata (Eg. tested by X, verified by some committee, another program etc). Thus, to be considered active in a belief set, the PGA must have a verification criteria that matches the belief set's requirements.
 
 \subsection{PGA response}
 A PGA receives as a proposition as an input. The output of a PGA has the following components:
+
 1. Truth value of the proposition.
+
 2. The proof of the propositions (or its negation) as a DAG of arguments generated by the PGA. 
 
-Note that unlike other propositions, arguments on Sophzie these are not stored on disk but do have a temporary URI specified in a slightly different format. The leaves of the DAG can have two kinds of arguments:
+Note that unlike other propositions, and arguments on Sophize these are not stored on disk but do have a temporary URI specified in a slightly different format. The leaves of the DAG can have two kinds of arguments:
 1. Arguments were the premises are limited to the premises of the PGA.
 2. Special 'Arguments' that indicate that the generation of the remaining proof must be delegated to another PGA.
 
 dealing with large proofs: delegate to self after generating (say 100) arguments.
 
-- (calulator like usage) - sometimes you don't care about proof just want to find what 157+346 is. You can set the fetch\_proof flag to `false' and `parse\_lenient' to 'true' in the request to the PGA. Saves computation. 
+- (calculator like usage) - sometimes you don't care about proof just want to find what 157+346 is. You can set the fetch\_proof flag to `false' and `parse\_lenient' to 'true' in the request to the PGA. Saves computation. 
 
 \subsection{Implementing a PGA}
-It is the responsibility of the PGA to parse the input, and optionally do the computation and proof generation. The sophize platform merely forwards the request to the PGA and performs some sanity checks on the output.
+It is the responsibility of the PGA to parse the input, and optionally do the computation and proof generation. Sophize platform merely forwards the request to the PGA and performs some sanity checks on the output.
 
 Any http server that can process the proof requests can be easily plugged in to Sophize. The registration is done in minutes and just requires just the specifying the address of the server to the Sophize's administrator. One server can implement multiple PGAs.
 
