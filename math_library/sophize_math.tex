@@ -11,7 +11,7 @@
 
 \newcommand\todo[1]{\textcolor{red}{TODO: #1}}
 
-\title{Sophize Knowledge Organization}
+\title{Sophize Mathematics Library}
 
 \author{ Abhishek Chugh }
 
@@ -31,7 +31,21 @@ Sophize is a novel mathematics library and discussion platform with a mission to
 
 \section{Introduction}
 
-\subsubsection*{Background: The Sophize Platform}
+\subsubsection*{The Sophize Platform}
+
+
+Sophize is a novel mathematics library and discussion platform. The author has developed the platform over the course of the last two years at \url{https://sophize.org}. Sophize's primary mission is to help users find existing proofs of mathematical statements, to discover new proofs, and to utilize this knowledge in their work. We combine knowledge from multiple resources and have accumulated thousands of definitions, theorems, and proofs from a wide variety of sources, including some published research, the PlanetMath encyclopedia, Wikipedia, and the Metamath formal system \cite{metamath}.
+
+\subsubsection*{Motivation}
+
+In the past couple of decades, the Internet has revolutionized our life by giving us access to seemingly unlimited information. Information from a wide variety of topics ranging from human medicine to rocket science is now just a few keystrokes away. However, even with this information we seem to having trouble understanding the complex world around us. In fact, dealing with the vast amounts of information thrown at us seems to be one of the primary problems of our generation. While we have access to a wide range of opinions on almost every topic imaginable, it has becoming increasingly difficult to decide which one to trust. It seems that you can find "proofs" for anything and everything we would like to believe.
+
+Thus the author's primary motivation for this project is to create a library that not just lays out all the information of the World but organizes in a way that help us make better sense of it. A library that helps us access justifications from a variety of viewpoints and help us collaboratively and objectively evaluate issues in the justifications or the viewpoints they arise from. Clearly, this is challenging goal. 
+
+We begin our journey with a focus on pure Mathematics, where knowledge is objectively less complex as compared to other fields. In mathematics, only logically sound arguments are acceptable as justifications. These arguments develop from different foundational theories and logical contradictions are the primary . Thus, as a Mathematics library Sophize's goal is to help our users access to mathematical proofs (chains of arguments) from a variety of foundational theories (extended to 'belief sets' as described in Section \ref{sec:bset}) and help us collaboratively and objectively evaluate issues in the argument or the belief sets they arise from.
+
+
+
 
 - The goal is rational truth. Three dimensions are consistency, correspondence and values.
 
@@ -54,6 +68,7 @@ Sophize is a novel mathematics library and discussion platform. The author has d
 Mathematical proofs are based on a variety of foundations such as ZFC, intuitionistic logic, and type theory. The arguments used in any proof are considered valid or not based on criteria that can vary. Most academic mathematics is peer-reviewed and published, but some mathematical proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using a formal system. 
 
 Sophize combines such an expansive range of proofs into a dense graph of propositions and logical arguments that aggregates knowledge from several documents and other data sources. We use this graph and combine it with the set of foundations and verifications chosen by each user to create proofs tailored to their needs. This introductory video gives an overview of the platform's offerings: \url{https://youtu.be/Wb1JbW9Otek}.
+	
 
 \begin{figure}[htbp]
 \begin{center}
@@ -69,8 +84,15 @@ Hence, we required novel knowledge organization techniques to connect mathematic
 
 
 \subsubsection*{Contribution}
-\todo{summarize sections. section 3 does X, section 4 does Y etc.}
+In this paper, we present the features\todo{x} of Sophize Mathematics Library. First, we expound \todo{x} Sophize's scheme to build a trust-focused logical network of mathematical knowledge. In section \ref{sec:pgm}, we describe Sophize's proof-generating machines which are computer programs that generate proofs that integrate with Sophize's knowledge graphs.
 
+We then present some features of Sophize Markdown, an extension of the Markdown language that is helps present Sophize's knowledge graphs to its users. It is convenient enough to be used for casual discussions of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from various sources, including formal systems. It thus plays an integral role in the two problems that we have mentioned above.
+
+Section \ref{sec:lib} discusses some other challenges and contributions made towards making Sophize a modern mathematics library. Finally, Section \ref{sec:summary} concludes the paper.
+
+
+\subsection*{Acknowledgements}
+A part of the research presented here was supported by the International Mathematical Union.
 
 \section{Sophize's Knowledge Organization Scheme}
 At its core, Sophize's approach is to simply keep track of all arguments in favour or against any proposition. Use of some form of arguments is the common factor amongst all mathematical (and perhaps all scientific) knowledge. We use this fact to unify knowledge from multiple sources in a meaningful way as described below.
@@ -186,9 +208,13 @@ If a proposition and its negation is proved within a belief set, it is inconsist
 
 Thus, it is important to track and report contradictions in a belief set. To do that Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negations of propositions. When a proposition and its negation are proven, the system reports such contradictions for every belief set. When generating proof graphs from the argument graph, a contradicting proposition cannot be used a premise for any argument.
 
-\subsection{Aggregating Knowledge}
+\subsection{Advantages and Limitations}
 
+Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
 
+Conjectural knowledge (Riemann hypothesis). 
+Practical utility of conjectural knowledge - eg. a lot of information security systems assume "P is not NP"
+Proof tailored to needs. Proof graph can be easily converted to prose too.
 
 \section{Proof-Generating Machines (PGM)}
 \label{sec:pgm}
@@ -342,54 +368,34 @@ Utilizing the full range of features offered by the Sophize platform requires th
 
 Solving these problems would need manual effort (e.g. crowd-sourcing) combined with automated extraction tools. Recent progress in machine learning and natural language processing techniques does make this problem seem tractable.
 
-\subsubsection{}
-
-
 \subsubsection{Connecting Across Datasets}
-The sub-problem 4 mentioned above is crucial to help make connections across datasets. For example, once we have identified that the `Jensen's Inequaility' in a published paper is same as the Planetmath proposition with the same name, Planetmath's proof is made available to the reader of the published paper. 
+The sub-problem 4 mentioned above is crucial to help make connections across datasets. For example, once we have identified that the `Jensen's Inequality' in a published paper is same as the Planetmath proposition with the same name, Planetmath's proof is automatically made available to the reader of the published paper.
 
-\subsection{Search Interface}
+However, figuring out if two sources are referring to the same proposition or a different version of the same proposition is often unclear. When working with formal systems using different languages, another related problem arises. There is no general way to claim equivalence of propositions across different formal systems. There are some projects, like Formal Harmony and theory morphisms, that are trying to understand in what sense these propositions are same and how we can translate one to another. But these projects are still in early stages and do not provide a general solution.
 
+However, we can utilize curated translations, such as those available from Logipedia, by representing them using arguments. The conclusion of such an argument is the proposition in target language and the premise would be the proposition in source language. For bi-directional translations two such arguments will be required. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. A user can choose not to accept such criteria. In that case, these translations will not be used in the generating proof graphs. Thus we can create proof graphs that have arguments from different languages.
+
+There are some cases where translations occur on firmer grounds, e.g., use of theory morphisms or translations of HOL-light proofs to Metamath. The author has not studied these cases in detail but expects that it to be possible to formulate such cross-language translations using the argument graphs.
 
 \subsection{Data Management}
-Sophize organizes 
 
+Sophize divides its data into groups called datasets for copyright management and data access rules. For example, the 'wiki' dataset that extracts knowledge from Wikipedia mathematics glossaries releases its data under `CC-BY-SA' license, whereas the `metamath' dataset is public (`CC0'). Our signed-in users are free to create their own datasets and we allow them to choose who can read, write or comment in these datasets. 
+
+Information can be added to Sophize platform using intuitive web forms. However, it is infeasible to extract information from large repositories in this manner. Sophize publishes its data schema and helper libraries (explained in Section \ref{sec:core}) in multiple languages. The extracted information is can thus be stored as text (JSON) files in a repository. Sophize provides dataset owners the ability to sync knowledge such repositories to the central Sophize database.
+
+\subsection{Search Interface}
+Sophize allows its users to run a run a federated search over its resources using an Elasticsearch server. We allow users to search a space-insensitive and case-insensitive search over \LaTeX\space formulae by encoding \LaTeX\space formulae as lexemes and an Elasticsearch analyzer (See section \ref{sources} for sources) that removes spaces and lower cases the encoding.
+
+For example the, latex formula \verb+$E = mc^2$+ is converted to \textit{Ej9rjmc9v2mMm}. 
+Note that the encoder converts spaces and new-lines into the character `j' or `J' which are removed by our Elasticsearch analyzer at the time of searching the documents.
 
 \subsection{Collaboration}
 
-
-
-
-
-\todo{copyright/access management}
-
-\todo{efficient computation and storage of proof graphs}
-
-\todo{ storing and reading data in disk/GitHub like repo }
-
+The Sophize platform includes an innovative mathematics communication interface designed to help
+mathematicians discuss mathematics and collaboratively discover new proofs. The design focuses on
+making the collaboration more productive and enjoyable by building the right set of technical
+tools that aid in effective organization and summarization of existing progress.
 With Sophize Markdown at its core, Sophize's collaboration interface\cite{todo}  (\underline{\href{https://youtu.be/d3gaalJ7UQM}{demo}}) is able to provide key features such as easy linking of existing math content, \LaTeX\space support, and live preview comment drafts.
-
-
-\subsection{Connection across data sources}
-\todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
-
-There is no good way to claim equivalence of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
-
-
-Eg. ZFC (informal) + ZFC (metamath) + Jensen's Inequality (metamath) + validity criteria (translation feels right to metamath group) $\rightarrow$ 
-Jensen's Inequality (informal)
-
-But, we can represent translations manually using arguments. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. Again, a user can choose not to accept such criteria. In that case, these translations will not be used in the generating proof graphs.
-
-
-Thus we can create proof graphs that have arguments from different languages.
-
-\subsection{Uses}
-Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
-
-Conjectural knowledge (Riemann hypothesis). 
-Practical utility of conjectural knowledge - eg. a lot of information security systems assume "P is not NP"
-Proof tailored to needs. Proof graph can be easily converted to prose too.
 
 
 \subsubsection{Other Notes}
