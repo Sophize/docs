@@ -78,7 +78,7 @@ At its core, Sophize's approach is to simply keep track of all arguments in favo
 We use the set of all known arguments to track knowledge from a variety of foundational theories. For theoretical knowledge, i.e., knowledge that doesn't involve empirical data, the primary criteria of validity is internal (logical) consistency. Thus, for each foundational theory (`belief set' described below), we also keep track of any contradictions that arise from those foundations.
 \todo{section is crap, overview of how aggregated}
 
-\subsection{Core concepts}
+\subsection{Core Concepts}
 Sophize uses the following concepts to logically organize theoretical knowledge.
 
 \paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, arguments, and belief sets. Each resource has a URI and contains fields such as search tags and citations.}
@@ -154,7 +154,7 @@ Note that an argument graph combines with different sets of axioms to generate d
 \end{center}
 \end{figure}
 
-\subsection{Validity of arguments}
+\subsection{Validity of Arguments}
 
 The correctness of proofs obtained by the above process is contingent on the validity of the arguments in the argument graph. The validity of an argument is, in principle, independent of other arguments and objectively verifiable. Formally defined logistic systems indeed have a mechanical procedure to independently verify validity of arguments.
 
@@ -172,7 +172,7 @@ Sophize doesn't promote or endorse any criteria. Instead, it allows its users to
 
 To easily manage validity criteria, the relationships between validity criteria are also maintained in the argument graph using argument-like dependency graphs. Eg. "Published in journal with SJR score $>$ 0.67" $\rightarrow$ "Published in Annals of Mathematics". By maintaining relationships like above, Sophize allows its users to conveniently choose multiple sources they consider to be reliable with a single manually chosen criterion. 
 
-\subsection{Belief sets}
+\subsection{Belief Sets}
 \label{sec:bset}
 
 A proposition is true if it is the conclusion of a valid argument and the premises of the argument are also true. Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no universal basis to choose one theory over another when trying to assert a proposition's truth/falsity.
@@ -186,7 +186,7 @@ If a proposition and its negation is proved within a belief set, it is inconsist
 
 Thus, it is important to track and report contradictions in a belief set. To do that Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negations of propositions. When a proposition and its negation are proven, the system reports such contradictions for every belief set. When generating proof graphs from the argument graph, a contradicting proposition cannot be used a premise for any argument.
 
-\subsection{Aggregating knowledge}
+\subsection{Aggregating Knowledge}
 
 
 
@@ -214,7 +214,7 @@ A PGM is considered `active' in a belief set iff:
 
 If the PGM returns a proof graph that utilizes As with an argument, one or more premises is used to indicate the validity of the PGM (Eg. tested by X, verified by some committee, another program etc). Thus, to be considered active in a belief set, the PGM must have a verification criteria that matches the belief set's requirements. The output of a PGM is not used in belief sets in which it is not active.
 
-\subsection{PGM response}
+\subsection{PGM Response}
 The response of a request to any PGM has the following components:
 
 \begin{itemize}
@@ -235,33 +235,13 @@ Note that unlike other propositions and arguments on Sophize, these are not stor
 Sophize allows saving the fact that a machine has returned a valid proof for a proposition (not the actual proof itself which can be quite large). Then this proposition can be used in further proofs without the need to invoke the proof generation every time. The proof, of course, can be requested by the users whenever required.
 
 
-\subsection{Connection across data sources}
-\todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
-
-There is no good way to claim equivalence of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
-
-
-Eg. ZFC (informal) + ZFC (metamath) + Jensen's Inequality (metamath) + validity criteria (translation feels right to metamath group) $\rightarrow$ 
-Jensen's Inequality (informal)
-
-But, we can represent translations manually using arguments. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. Again, a user can choose not to accept such criteria. In that case, these translations will not be used in the generating proof graphs.
-
-
-Thus we can create proof graphs that have arguments from different languages.
-
-\subsection{Uses}
-Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
-
-Conjectural knowledge (Riemann hypothesis). 
-Practical utility of conjectural knowledge - eg. a lot of information security systems assume "P is not NP"
-Proof tailored to needs. Proof graph can be easily converted to prose too.
-
-
 \section{Sophize Markdown}
 
 In the author's view, it is crucial to maintain the proofs graphs for building trustable knowledge. However, the presentation of proofs as graphs to users is perhaps not very convenient. Traditional text based narration remains indispensable when presenting knowledge to the reader.
 
-We have extended the Markdown language - a lightweight markup language for creating formatted text using a plain-text editor - for building a rich narration interface. It allows users to quickly encode and present semantic data, to show the truth status of propositions available in prose, and to effortlessly access proof graphs. The detailed specification of Sophize Markdown is available here. Many of its features are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}. We highlight some of the salient features here.
+We have extended the Markdown language - a lightweight markup language for creating formatted text using a plain-text editor - for building a rich narration interface. It allows users to quickly encode and present semantic data, to show the truth status of propositions available in prose, and to effortlessly access proof graphs. 
+
+With Sophize Markdown, we can easily add \LaTeX\space by enclosing it between two \$ signs (or \$\$ for display math). The detailed specification of Sophize Markdown is available here. Many of its features are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}. We highlight the prominent features here.
 
 \subsection{Embedding semantic data}
 
@@ -329,13 +309,15 @@ An ellipse is a regular \dashuline{oval} shape, traced by a point moving in a pl
 
 In the above example, the `EXPAND' option expanded the definition of the term, and statement of the proposition in place. Thus we were able to easily re-use concepts and theorems already extracted from other sources (say, Wikipedia and the Oxford dictionary in this case).
 
-\subsection{Status Indicators}
+\subsection{Truth Status}
 
-For propositions, a truth-value icon indicating whether or not there is a proof is added next to the link. Clicking on the icon brings up the proof graph as shown in Figure \ref{proof_tree}. Similarly, an icon is added next to a proof generating machine which indicates whether the PGM is active or not. These options can be turned on or off depending on the input and the context. 
+Sophize markdown adds an icon next to each proposition link. This icon indicates whether the proposition has been proven or dis-proven (or both) in the currently selected belief set using a check-mark or a cross. Clicking on the icon brings up the proof graph as shown in Figure \ref{proof_tree}. If the users switches from one belief set to another, the icon is updated based on the truth values in the new belief set but other parts of the article are unchanged.
+
+Similarly, an icon is added next to a proof generating machine which indicates whether the PGM is active or not.
 
 \subsection{Formal Language Support}
 
-In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parseable by an external parser. We can convert the externally parsed output into Markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a convenient interface, where the user types in the native language, and the final output automatically allows users to explore all concepts that make up the input statement in depth. Currently, this is demonstrated in the use of Sophize Markdown with the Metamath language.
+In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parse-able by an external parser. We can convert the externally parsed output into Markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a convenient interface, where the user types in the native language, and the final output automatically allows users to explore all concepts that make up the input statement in depth. Currently, this is demonstrated in the use of Sophize Markdown with the Metamath language.
 
 \begin{figure}[htbp]
 \begin{center}
@@ -345,37 +327,71 @@ In formal languages, definitions of terms, statements of propositions, and suppo
 \end{center}
 \end{figure}
 
-\subsection{\LaTeX\space Support}
 
-With Sophize Markdown, we can add \LaTeX\space by enclosing it between two \$ signs (or \$\$ for display math).
+\section{Building a Modern Mathematics Library}
+The argument and proof graphs in help us build a network of information that spans across a wide variety of sources (including live results from PGMs). Using different belief sets, users can view mathematical knowledge arising from different theoretical foundations and choose what they consider to be reliable. With Sophize Markdown, users can easily embed semantic information, thus making it convenient to explore the network of knowledge that is being built. However, a few more practical issues need to be overcome to build a modern scalable library with reliable information.
 
-The following example summarizes the specification:
-\begin{quote}
-\begin{verbatim} 
-Einstein's most famous equation is $E=mc^2$ but it is his handwritten theory of 
-happiness is what fetched $1.3 million recently. While it may not fetch many \$s, I 
-like the field equations more: $$G_{\mu \nu }+\Lambda g_{\mu \nu }=\kappa T_{\mu \nu }$$
-\end{verbatim}
-\end{quote}
+\subsection{Semantic Data Extraction}
+Utilizing the full range of features offered by the Sophize platform requires the availability of semantic information. However, extracting semantic information from unstructured or semi-structured literature is a difficult problem. This problem can be seen as composed of several sub-problems:
+\begin{itemize}
+\item Finding definitions and propositions in prose.
+\item Associating the appropriate entity with a term used in prose for quick lookup.
+\item Identifying arguments and along with premises and conclusion.
+\item \label{prob:dup} Identifying duplicate definitions and propositions used in different sources.
+\end{itemize}
+
+Solving these problems would need manual effort (e.g. crowd-sourcing) combined with automated extraction tools. Recent progress in machine learning and natural language processing techniques does make this problem seem tractable.
+
+\subsubsection{}
 
 
-The above Markdown code is rendered as:
-\begin{mdframed}
-Einstein's most famous equation is $E=mc^2$ but it is his handwritten theory of happiness is
-what fetched \$1.3 million recently. While it may not fetch many \$s, I like the field
-equations more: $$G_{\mu \nu }+\Lambda g_{\mu \nu }=\kappa T_{\mu \nu }$$
-\end{mdframed}
+\subsubsection{Connecting Across Datasets}
+The sub-problem 4 mentioned above is crucial to help make connections across datasets. For example, once we have identified that the `Jensen's Inequaility' in a published paper is same as the Planetmath proposition with the same name, Planetmath's proof is made available to the reader of the published paper. 
 
-\subsection{Sophize Markdown benefits}
+\subsection{Search Interface}
 
-With Sophize Markdown at its core, Sophize's collaboration interface\cite{todo}  (\underline{\href{https://youtu.be/d3gaalJ7UQM}{demo}}) is able to provide key features such as easy linking of existing math content, \LaTeX\space support, and live preview comment drafts.
 
-\section{Other Engineering challenges}
+\subsection{Data Management}
+Sophize organizes 
+
+
+\subsection{Collaboration}
+
+
+
+
+
 \todo{copyright/access management}
 
 \todo{efficient computation and storage of proof graphs}
 
 \todo{ storing and reading data in disk/GitHub like repo }
+
+With Sophize Markdown at its core, Sophize's collaboration interface\cite{todo}  (\underline{\href{https://youtu.be/d3gaalJ7UQM}{demo}}) is able to provide key features such as easy linking of existing math content, \LaTeX\space support, and live preview comment drafts.
+
+
+\subsection{Connection across data sources}
+\todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
+
+There is no good way to claim equivalence of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
+
+
+Eg. ZFC (informal) + ZFC (metamath) + Jensen's Inequality (metamath) + validity criteria (translation feels right to metamath group) $\rightarrow$ 
+Jensen's Inequality (informal)
+
+But, we can represent translations manually using arguments. Such translations do not stand on a very firm foundation and that should be indicated in the validation criteria of the argument. Again, a user can choose not to accept such criteria. In that case, these translations will not be used in the generating proof graphs.
+
+
+Thus we can create proof graphs that have arguments from different languages.
+
+\subsection{Uses}
+Efficiently modelling different axiomatic systems that have a large overlap of arguments(eg. euclidean/parabolic/hyperbolic geometry, ZF/ZFC etc)
+
+Conjectural knowledge (Riemann hypothesis). 
+Practical utility of conjectural knowledge - eg. a lot of information security systems assume "P is not NP"
+Proof tailored to needs. Proof graph can be easily converted to prose too.
+
+
 \subsubsection{Other Notes}
 \todo{What criteria are met based on the 2013 report}
 
