@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered a platform to aggregate knowledge from multiple sources. The platform meaningfully combines knowledge from published research, encyclopaedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
+Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this scheme at its core, we have engineered a platform to logically aggregate knowledge from multiple sources. The platform curates knowledge from published research, encyclopaedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we came up with concept of 'proof-generating machines' and developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
 
 \end{abstract}
 
@@ -42,33 +42,16 @@ In the past couple of decades, the Internet has revolutionized our life by givin
 
 Thus the author's primary motivation for this project is to create a library that not just lays out all the information of the World but organizes in a way that help us make better sense of it. A library that helps us access justifications from a variety of viewpoints and help us collaboratively and objectively evaluate issues in the justifications or the viewpoints they arise from. Clearly, this is challenging goal. 
 
-We begin our journey with a focus on pure Mathematics, where knowledge is objectively less complex as compared to other fields. In mathematics, only logically sound arguments are acceptable as justifications. These arguments develop from different foundational theories and logical contradictions are the primary . Thus, as a Mathematics library Sophize's goal is to help our users access to mathematical proofs (chains of arguments) from a variety of foundational theories (extended to 'belief sets' as described in Section \ref{sec:bset}) and help us collaboratively and objectively evaluate issues in the argument or the belief sets they arise from.
+We begin our journey with a focus on pure Mathematics, where knowledge is objectively less complex as compared to other fields. In mathematics, only logically sound arguments are acceptable as justifications. These arguments develop from different foundational theories and logical consistency is the primary criteria of correctness for them. Thus, as a Mathematics library, Sophize's goal is to help our users access to mathematical proofs (chains of arguments) from a variety of foundational theories (extended to `belief sets' as described in Section \ref{sec:bset}) and help us collaboratively and objectively evaluate issues in the argument or the belief sets they arise from.
 
-
-
-
-- The goal is rational truth. Three dimensions are consistency, correspondence and values.
-
-- No hidden assumptions. Should have clear answer to every question of the form `why do you believe X'.
-
-- In its current iteration, Sophize implements consistency. Knowledge represented by manually and automated generation of arguments. Can model vast majority (almost all) of mathematics.
-
-- This gives you a way to create (consistency enforced) models. Next step is to see how accurately these models represent (parts of) the World. That involves quantifying correspondence of observations with the predictions made by the theories.
-
-- And finally, you need model individual, institutional, and societal values to claim the truth of `ought statements' like `I should wear a mask' or `Masks should be mandated'.
-
-- These starting beliefs (axioms, principles, laws, assumptions) and values are a way to model our belief systems. There are no absolutes, each belief system results in a different rational truth.
+With our current scheme we can incorporate almost all mathematics. A natural extension would be model observational data and develop criteria to quantify empirical correspondence in order to have the ability to incorporate scientific knowledge. But, for now we are focused on building a state-of-the-art Mathematics library that is valuable to our community.
 
 
 
 \subsubsection*{Proofs in Sophize}
-Sophize is a novel mathematics library and discussion platform. The author has developed the platform over the course of the last two years at \url{https://sophize.org}. Sophize's primary mission is to help users find existing proofs of mathematical statements, to discover new proofs, and to utilize this knowledge in their work. We combine knowledge from multiple resources and have accumulated thousands of definitions, theorems, and proofs from a wide variety of sources, including some published research, the PlanetMath encyclopaedia, Wikipedia, and the Metamath formal system \cite{metamath}.
-
-
 Mathematical proofs are based on a variety of foundations such as ZFC, intuitionistic logic, and type theory. The arguments used in any proof are considered valid or not based on criteria that can vary. Most academic mathematics is peer-reviewed and published, but some mathematical proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using a formal system. 
 
 Sophize combines such an expansive range of proofs into a dense graph of propositions and logical arguments that aggregates knowledge from several documents and other data sources. We use this graph and combine it with the set of foundations and verifications chosen by each user to create proofs tailored to their needs. This introductory video gives an overview of the platform's offerings: \url{https://youtu.be/Wb1JbW9Otek}.
-	
 
 \begin{figure}[htbp]
 \begin{center}
@@ -80,13 +63,12 @@ Sophize combines such an expansive range of proofs into a dense graph of proposi
 
 This work can also be seen as a step towards formalizing the network of information that exists in the connections of mathematical objects. The committee on planning a global library of the mathematical sciences recognized that this network is largely unexplored, and formalizing it has tremendous potential to accelerate math research \cite{sciences2014developing}.
 
-Hence, we required novel knowledge organization techniques to connect mathematical entities from such a wide range of formal and informal knowledge sources. And thus, one of the main challenges towards building the Sophize platform was to create a simple way to embed mathematical entities on the web. \todo{Explain and summarize the problem statement}
-
+Hence, we required novel knowledge organization techniques to connect mathematical entities from such a wide range of formal and informal knowledge sources. And thus, one of the main challenges towards building the Sophize platform was to create a simple way to embed mathematical entities on the web.
 
 \subsubsection*{Contribution}
-In this paper, we present the features\todo{x} of Sophize Mathematics Library. First, we expound \todo{x} Sophize's scheme to build a trust-focused logical network of mathematical knowledge. In section \ref{sec:pgm}, we describe Sophize's proof-generating machines which are computer programs that generate proofs that integrate with Sophize's knowledge graphs.
+In this paper, we present the novel concepts and features of Sophize Mathematics Library. First, we expound Sophize's scheme to build a trust-focused logical network of mathematical knowledge. In section \ref{sec:pgm}, we describe Sophize's proof-generating machines which are computer programs that generate proofs that integrate with Sophize's knowledge graphs.
 
-We then present some features of Sophize Markdown, an extension of the Markdown language that is helps present Sophize's knowledge graphs to its users. It is convenient enough to be used for casual discussions of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from various sources, including formal systems. It thus plays an integral role in the two problems that we have mentioned above.
+We then present some features of Sophize Markdown, an extension of the Markdown language that helps present Sophize's knowledge graphs to its users. It is convenient enough to be used for casual discussions of mathematical ideas over the web. It is also powerful enough to embed mathematical entities such as definitions, theorems, and proofs from various sources, including formal systems. It thus plays an integral role in the two problems that we have mentioned above.
 
 Section \ref{sec:lib} discusses some other challenges and contributions made towards making Sophize a modern mathematics library. Finally, Section \ref{sec:summary} concludes the paper.
 
@@ -98,7 +80,6 @@ A part of the research presented here was supported by the International Mathema
 At its core, Sophize's approach is to simply keep track of all arguments in favour or against any proposition. Use of some form of arguments is the common factor amongst all mathematical (and perhaps all scientific) knowledge. We use this fact to unify knowledge from multiple sources in a meaningful way as described below.
 
 We use the set of all known arguments to track knowledge from a variety of foundational theories. For theoretical knowledge, i.e., knowledge that doesn't involve empirical data, the primary criteria of validity is internal (logical) consistency. Thus, for each foundational theory (`belief set' described below), we also keep track of any contradictions that arise from those foundations.
-\todo{section is crap, overview of how aggregated}
 
 \subsection{Core Concepts}
 Sophize uses the following concepts to logically organize theoretical knowledge.
@@ -355,6 +336,7 @@ In formal languages, definitions of terms, statements of propositions, and suppo
 
 
 \section{Building a Modern Mathematics Library}
+\label{sec:lib}
 The argument and proof graphs in help us build a network of information that spans across a wide variety of sources (including live results from PGMs). Using different belief sets, users can view mathematical knowledge arising from different theoretical foundations and choose what they consider to be reliable. With Sophize Markdown, users can easily embed semantic information, thus making it convenient to explore the network of knowledge that is being built. However, a few more practical issues need to be overcome to build a modern scalable library with reliable information.
 
 \subsection{Semantic Data Extraction}
@@ -379,7 +361,7 @@ There are some cases where translations occur on firmer grounds, e.g., use of th
 
 \subsection{Data Management}
 
-Sophize divides its data into groups called datasets for copyright management and data access rules. For example, the 'wiki' dataset that extracts knowledge from Wikipedia mathematics glossaries releases its data under `CC-BY-SA' license, whereas the `metamath' dataset is public (`CC0'). Our signed-in users are free to create their own datasets and we allow them to choose who can read, write or comment in these datasets. 
+Sophize divides its data into groups called datasets for copyright management and data access rules. For example, the 'wiki' dataset that extracts knowledge from Wikipedia mathematics glossaries releases its data under `CC-BY-SA' license, whereas the `metamath' dataset is public (`CC0'). Our signed-in users are free to create their own datasets and we allow them to choose who can read, write or comment in these datasets. Another interesting access control is the restriction of use of resources (especially argument-validity criteria) outside an otherwise open-to-read dataset.
 
 Information can be added to Sophize platform using intuitive web forms. However, it is infeasible to extract information from large repositories in this manner. Sophize publishes its data schema and helper libraries (explained in Section \ref{sec:core}) in multiple languages. The extracted information is can thus be stored as text (JSON) files in a repository. Sophize provides dataset owners the ability to sync knowledge such repositories to the central Sophize database.
 
@@ -398,7 +380,8 @@ tools that aid in effective organization and summarization of existing progress.
 With Sophize Markdown at its core, Sophize's collaboration interface\cite{todo}  (\underline{\href{https://youtu.be/d3gaalJ7UQM}{demo}}) is able to provide key features such as easy linking of existing math content, \LaTeX\space support, and live preview comment drafts.
 
 
-\subsubsection{Other Notes}
+\section{Conclusion}
+\label{sec:conclusion}
 \todo{What criteria are met based on the 2013 report}
 
 \todo{How much math can be represented. Eg. three valued logic}
