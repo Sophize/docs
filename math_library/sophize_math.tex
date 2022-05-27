@@ -11,7 +11,7 @@
 
 \newcommand\todo[1]{\textcolor{red}{TODO: #1}}
 
-\title{Sophize Mathematics Library (Work In Progress) }
+\title{Sophize Knowledge Organization}
 
 \author{ Abhishek Chugh }
 
@@ -23,7 +23,7 @@
 \maketitle
 
 \begin{abstract}
-[FROM CICM] Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present a Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety of proofs. With this knowledge organization scheme at its core, we have engineered that platform to aggregate knowledge from several sources. The platform meaningfully combines knowledge from published research, encyclopedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath. Furthermore, it allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found in various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
+Sophize is a novel mathematics library and discussion platform with a mission to help our users find and organize mathematical proofs. We present Sophize's novel yet familiar knowledge organization scheme that is used to represent a wide variety proofs. With this knowledge organization scheme at its core, we have engineered a platform to aggregate knowledge from multiple sources. The platform meaningfully combines knowledge from published research, encyclopaedias such as PlanetMath and Wikipedia, informal computer programs and formal systems such as Metamath; and allows its users to run a federated search over them. To make this happen, two developments were necessary. First, we developed an open plugin architecture that allows proofs from computer programs to be generated as required. Second, we extended the Markdown language to represent the connections between between mathematical objects found across various sources of knowledge. In addition, we also utilized this new language to create a novel communication system built specifically to aid mathematicians in solving problems collaboratively.
 
 \end{abstract}
 
@@ -47,15 +47,15 @@
 
 
 
-\subsubsection*{Proofs in Sophize  [FROM CICM]}
-Sophize is a novel mathematics library and discussion platform. The author has developed the platform over the course of the last two years at \url{https://sophize.org}. Sophize's primary mission is to help users find existing proofs of mathematical statements, to discover new proofs, and to utilize this knowledge in their work. We combine knowledge from multiple resources and have accumulated thousands of definitions, theorems, and proofs from a wide variety of sources, including some published research, the PlanetMath encyclopedia, Wikipedia, and the Metamath formal system \cite{metamath}.
+\subsubsection*{Proofs in Sophize}
+Sophize is a novel mathematics library and discussion platform. The author has developed the platform over the course of the last two years at \url{https://sophize.org}. Sophize's primary mission is to help users find existing proofs of mathematical statements, to discover new proofs, and to utilize this knowledge in their work. We combine knowledge from multiple resources and have accumulated thousands of definitions, theorems, and proofs from a wide variety of sources, including some published research, the PlanetMath encyclopaedia, Wikipedia, and the Metamath formal system \cite{metamath}.
 
 
 Mathematical proofs are based on a variety of foundations such as ZFC, intuitionistic logic, and type theory. The arguments used in any proof are considered valid or not based on criteria that can vary. Most academic mathematics is peer-reviewed and published, but some mathematical proofs can be found in community curated sources such as Wikipedia. Proofs can also be algorithmically generated, and at the highest level of verification, they are represented and verified using a formal system. 
 
 Sophize combines such an expansive range of proofs into a dense graph of propositions and logical arguments that aggregates knowledge from several documents and other data sources. We use this graph and combine it with the set of foundations and verifications chosen by each user to create proofs tailored to their needs. This introductory video gives an overview of the platform's offerings: \url{https://youtu.be/Wb1JbW9Otek}.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \fbox{\includegraphics[height=12cm]{proof_tree}}
 \caption{A proof displayed as a graph (tree) of arguments and propositions on the Sophize platform.}
@@ -73,20 +73,19 @@ Hence, we required novel knowledge organization techniques to connect mathematic
 
 
 \section{Sophize's Knowledge Organization Scheme}
-At its core, Sophize's approach is to simply keep track of all arguments in favour or against any proposition. Use of arguments is the common factor amongst all mathematical (and scientific) knowledge. We use this fact to unify knowledge from multiple sources in a meaningful way as described below.
+At its core, Sophize's approach is to simply keep track of all arguments in favour or against any proposition. Use of some form of arguments is the common factor amongst all mathematical (and perhaps all scientific) knowledge. We use this fact to unify knowledge from multiple sources in a meaningful way as described below.
 
-We use the set of all known arguments to track knowledge from a variety of foundational theory. For theoretical knowledge, i.e., knowledge that doesn't involve empirical data, the primary criteria of validity is internal (logical) consistency. Thus, for each foundational theory (for every belief set to be precise), we also keep track of any contradictions that arise from those foundations.
-
-The following subsections will introduce concepts that will be 
+We use the set of all known arguments to track knowledge from a variety of foundational theories. For theoretical knowledge, i.e., knowledge that doesn't involve empirical data, the primary criteria of validity is internal (logical) consistency. Thus, for each foundational theory (`belief set' described below), we also keep track of any contradictions that arise from those foundations.
+\todo{section is crap, overview of how aggregated}
 
 \subsection{Core concepts}
-The various concepts used for organizing knowledge logically are described below. These concepts have been modelled in JSON schema \cite{sophize_datamodel} and published for popular programming language such as Java (MVN), Javascript (npm) and Python (PyPI). 
+Sophize uses the following concepts to logically organize theoretical knowledge.
 
 \paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, arguments, and belief sets. Each resource has a URI and contains fields such as search tags and citations.}
 
 A \textbf{URI} consists of two parts: a namespace-like identifier called its dataset-id, which indicates the data source, and a resource-id that specifies the resource type and its unique name in the data source. The dataset-id may be omitted if it can be inferred from the surrounding context.
 
-For example, the Pythagorean theorem (a \textbf{P}roposition) represented in the Metamath project may have the URI \emph{metamath/\textbf{P}\_pythagorean} and the definition of cone (a \textbf{T}erm) extracted from Wikipedia may have the URI \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the `wiki' dataset, cone's definition can be referred to simply as \emph{T\_cone}.
+For example, the Pythagorean theorem (a \textbf{P}roposition) represented in the Metamath project may have the URI \emph{metamath/\textbf{P}\_pythagorean} and the definition of cone (a \textbf{T}erm) extracted from Wikipedia may have the URI \emph{wiki/\textbf{T}\_cone}. When used inside another resource in the same (`wiki') dataset, cone's definition can be referred to simply as \emph{T\_cone}.
 
 The same URI scheme will be used in this paper to refer to various terms, propositions, arguments, etc.
 
@@ -96,22 +95,24 @@ The same URI scheme will be used in this paper to refer to various terms, propos
 
 \paragraph{An \textbf{argument} is a set of propositions called premises along with a concluding proposition that is claimed to follow from the premises. In addition, most arguments include supporting text that explains how the conclusion follows from the premises. A proof is seen here as a directed graph of arguments and propositions.}
 
-\paragraph{A \textbf{resource} is an abstract concept inherited by all other top-level concepts like terms, propositions, and arguments. Each resource has a URI and contains fields such as search tags and citations.}
+\paragraph{A \textbf{belief set} is roughly the set of axiomatic propositions that make up the foundations of a theory. Belief sets will be described in more detail in subsection \ref{sec:bset}.}
+
+\paragraph{Loosely defined, a \textbf{proof-generating machine} (PGM) is a computer program that generates the proof for an input proposition. PGMs are described in more detail in section \ref{sec:pgm}.}
 
 \subsection{Argument Graph}
-An argument can be seen as a simple graph (see Figure \ref{argument}) with two types of nodes - (a) a single node representing the argument itself and (b) a set of proposition nodes representing the argument's conclusion and premises. The edge of this graph are directed and go from (a) premise nodes to argument and (b) argument node to conclusion node.
+An argument can be seen as a simple graph (see Figure \ref{argument}) with two types of nodes - (a) a single node representing the argument itself and (b) a set of proposition nodes representing the argument's conclusion and premises. The edges of this graph are directed and go from (a) premise nodes to argument node and (b) argument node to conclusion node.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
-\fbox{\includegraphics[height=4cm]{argument}}
+\fbox{\includegraphics[height=3.5cm]{argument}}
 \caption{An argument represented as a graph.}
 \label{argument}
 \end{center}
 \end{figure}
 
-A set of arguments will can thus be represented as a single graph that we call an \textbf{argument graph}.
+A set of arguments can thus be represented as a single graph that we call an \textbf{argument graph} (Figure \ref{argument_graph}).
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \fbox{\includegraphics[height=7cm]{argument_graph}}
 \caption{A set of arguments forming an argument graph.}
@@ -119,66 +120,122 @@ A set of arguments will can thus be represented as a single graph that we call a
 \end{center}
 \end{figure}
 
-A proposition is considered true if it is claimed by a sound argument. An argument is considered sound if it is valid and its premises are true. Also, as explained in the section above, the validity criteria of an argument is modelled as just another premise. Thus, the relationship between all propositions and arguments can be represented with a simple graph. The following figure shows the different types of nodes and edges in such a graph
 
-1. Nodes - propositions and arguments
+\subsection{Generating Proof Graphs}
+An argument graph along with a set of set of axioms results in a \textbf{proof graph}. Any reachability algorithm starting with the axiom nodes is sufficient to create the proof graph (See Figure \ref{proof_graph1}).
 
-2. Edges - premise to argument and argument to conclusion
 
-\subsection{Truth value computation}
+\begin{figure}[htbp]
+\begin{center}
+\fbox{\includegraphics[height=7cm]{proof_graph1}}
+\caption{Proof graph from argument graph (Figure \ref{argument_graph}) using `Prop 2', `Prop 3', Prop 4' are axioms.}
+\label{proof_graph1}
+\end{center}
+\end{figure}
 
-Using the argument graph, we can find truth values of every proposition in a belief set. Starting with the unsupported proposition of the belief set, computing truth values can be done using a simple recursive algorithm. The output of this algorithm is another graph, that we call proof graph, that has a proof for all the propositions it contains. For each proposition, a proof in the form of DAG of arguments (starting with unsupported propositions) can be trivially extracted from this proof graph.
 
-Note that an argument graph combines with different belief sets to generate different proof graphs. The same argument may be utilized in multiple belief sets.
+A proof graph is a directed acyclic graph and contains complete proofs (including all alternate proofs) for all its propositions.
 
-\todo{alternate arguments, proofs for same proposition}
+\begin{figure}[htbp]
+\begin{center}
+\fbox{\includegraphics[height=6cm]{proof_prop7}}
+\caption{Proof of `Prop 7' from proof graph in Figure \ref{proof_graph1} uses arguments `Arg 4' and `Arg 5'.}
+\label{proof_prop7}
+\end{center}
+\end{figure}
+
+Note that an argument graph combines with different sets of axioms to generate different proof graphs. The same argument may be utilized in multiple belief sets (Figure \ref{proof_graph2}).
+
+\begin{figure}[htbp]
+\begin{center}
+\fbox{\includegraphics[height=8cm]{proof_graph2}}
+\caption{Proof graph from the same argument graph (Figure \ref{argument_graph}) using `Prop 1', `Prop 2', and Prop 7' as axioms.}
+\label{proof_graph2}
+\end{center}
+\end{figure}
 
 \subsection{Validity of arguments}
-Validity of an argument is, in principle, objectively verifiable. Formally defined logistic systems have a mechanical procedure to verify validity arguments.
 
-However, mathematics only utilizes a tiny portion of formally verifiable arguments. Most mathematics is verified via peer review, some of this knowledge is curated by experts in books, encyclopaedias. The claim of validity of proofs (arguments) is judged based on the various parameters such as academic standing of the claimant, reputation of the peer reviewing journal, the history of errors of the book or encyclopedia containing them, etc. Clearly, these criteria are subjective and can vary to some extent for each individual.
+The correctness of proofs obtained by the above process is contingent on the validity of the arguments in the argument graph. The validity of an argument is, in principle, independent of other arguments and objectively verifiable. Formally defined logistic systems indeed have a mechanical procedure to independently verify validity of arguments.
 
-Sophize doesn't promote or endorse any criteria. Instead, it allows its users to choose the criteria they believe in. A validity criterion is modelled as a proposition and each argument has one such validity criterion associated with it.
+However, only a small section of Mathematics is developed using formally verified arguments. Vast majority of mathematics is verified via peer review, some of this knowledge is curated by experts in books, encyclopaedias. The claim of validity of proofs (arguments) is judged based on the various parameters such as academic standing of the claimant, reputation of the peer reviewing journal, the history of errors of the book or encyclopaedia containing them, etc. Clearly, these criteria are subjective and each individual's criteria of accepting validity of an argument can vary to some extent.
 
-Some sample validity criteria:
+Sophize doesn't promote or endorse any criteria. Instead, it allows its users to choose the criteria they believe in. The validity criterion is modelled as a proposition and is attached to arguments as a premise. 
 
-1. Formally verified using 3 independent COQ verifiers.
+\begin{figure}[htbp]
+\begin{center}
+\fbox{\includegraphics[height=5cm]{validity_criterion}}
+\caption{Validity criteria as an argument premise.}
+\label{validity_criterion}
+\end{center}
+\end{figure}
 
-2. Peer reviewed by XYZ journal
-
-3. Published on Wikipedia.
-
-4. Claimed by Maryam Gauss.
-
-To easily manage validity criteria, the relationships between validity criteria are also maintained using argument like dependency graphs.
-
-Eg. published in journal with score more than 0.67 $\rightarrow$ published in Annals of Mathematics
-
-
-\todo{Q. Who has the time to setup belief sets? How does Sophize make it 
-convenient.}
-
+To easily manage validity criteria, the relationships between validity criteria are also maintained in the argument graph using argument-like dependency graphs. Eg. "Published in journal with SJR score $>$ 0.67" $\rightarrow$ "Published in Annals of Mathematics". By maintaining relationships like above, Sophize allows its users to conveniently choose multiple sources they consider to be reliable with a single manually chosen criterion. 
 
 \subsection{Belief sets}
+\label{sec:bset}
 
-In Sophize, a proposition is true if it is the conclusion of a valid argument and the premises of the argument are also true.
+A proposition is true if it is the conclusion of a valid argument and the premises of the argument are also true. Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no universal basis to choose one theory over another when trying to assert a proposition's truth/falsity.
 
-Of course, this means that we need to start with some propositions that are assumed to be true without further justification. Traditionally, these are mathematical axioms and are considered to self-evidently true. In mathematical inquiry, theorems are proven/disproven in one or more multiple theories, each with its own set of axioms. Each theory may have its theoretical advantages and practical uses and there are no universal criteria to choose one theory over another when trying to assert a proposition's truth/falsity.
+Thus, Sophize allows any set of propositions to be considered true without evidence. Such a set of propositions is called a \textbf{belief set}. Propositions representing argument validity criteria are also part of belief sets. All propositions that are considered to be true in a belief set without proof are called its `unsupported propositions'. In addition, a belief set can also contain a number of `proof-generating machines' (e.g. for managing axiom-schemas) that will be discussed later. For ease of use, belief sets can also contain other belief sets.
 
-Thus, Sophize allows any set of propositions to be considered true without evidence. Such a set of propositions is called a belief set. Thus, the truth-value of a proposition is only defined within a belief set - there is no notion of of absolute or universal truth. 
+The truth-value of a proposition is only defined within a belief set - there is no notion of of absolute or universal truth. Sophize creates proof graphs for all its belief sets.
 
-Propositions representing argument validity criteria are also part of belief sets. All propositions that are considered to be true in a belief set without proof are called `unsupported propositions'.
+\subsection{Tracking Inconsistencies}
+If a proposition and its negation is proved within a belief set, it is inconsistent. As noted by the principle of explosion, any proposition can be proved from such a contradiction, thus making the claim of truth of any proposition practically worthless.
 
-Computing of truth values in a belief set is thus a simple recursive graph algorithm as explained in the section below. Sophize computes truth values for all its belief sets.
+Thus, it is important to track and report contradictions in a belief set. To do that Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negations of propositions. When a proposition and its negation are proven, the system reports such contradictions for every belief set. When generating proof graphs from the argument graph, a contradicting proposition cannot be used a premise for any argument.
 
-\subsection{Tracking Inconsistency}
-If a propositions and its negation is proved within a belief set, it is inconsistent. Due to principle of explosion, any propositions can be proved from such a contradiction. Thus making the claim of truth of any proposition practically worthless.
+\subsection{Aggregating knowledge}
 
-Thus, it is important to track and report contradictions in a belief set. So, Sophize has a semantic notion of negation of a proposition. The premises or conclusion of an argument can be negations of propositions.
 
-When a proposition and its negation are proven, the system reports such contradictions for every belief set.
 
-\subsection{Translations}
+\section{Proof-Generating Machines (PGM)}
+\label{sec:pgm}
+A lot of mathematical knowledge is computed. Computation machines (e.g. calculators, algebras) can be seen as performing the following tasks
+\begin{itemize}
+\item Parsing the input into a language that can represent math formulae. 
+\item Finding and outputting an equivalent form of the formula.
+\end{itemize}
+Thus, their focus is not on finding the proof but only finding the equivalent (simplified) representation of the input formula (Although many computer algebras do show the steps of the computation.). With Sophize, the focus instead is to generate proofs of the input propositions. A \textbf{Proof-generating machine} (PGM for short) is a computer program that generates a partial proof graph against or in favour of an argument. PGMs can also have the capability to perform tasks 1 and 2, mentioned above.
+
+PGMs take in some text as input which is parsed by the each PGM as they wish. Typically the text is treated either as a proposition (e.g. `3 + 5 = 8') or a formula (eg. `5+6') and in the latter case the PGM is responsible for finding an appropriate proposition (eg. `5 + 6 = 11') for the given input. The PGM then generates a proof graph for this proposition and returns back to the user.
+
+The Sophize platform itself merely forwards the request to the associated PGM and performs some checks on the output returned. Any http server that can process a proof request can be easily plugged in to Sophize platform using its HTTP address. One server can implement multiple PGMs.
+
+\subsection{`Active' PGMs}
+As with other parts of Sophize, the validity of the output of a PGM is not taken for granted. Each PGM must specify all the propositions (premises) that it will use in the root nodes of the proof graph it returns. In addition, a PGM may also delegate parts of proofs to another PGM. These PGMs must also be specified. 
+
+A PGM is considered `active' in a belief set iff:
+\begin{enumerate}
+\item all of its premises are true in the belief set.
+\item all the PGMs it delegates-to are active.
+\end{enumerate}
+
+If the PGM returns a proof graph that utilizes As with an argument, one or more premises is used to indicate the validity of the PGM (Eg. tested by X, verified by some committee, another program etc). Thus, to be considered active in a belief set, the PGM must have a verification criteria that matches the belief set's requirements. The output of a PGM is not used in belief sets in which it is not active.
+
+\subsection{PGM response}
+The response of a request to any PGM has the following components:
+
+\begin{itemize}
+
+\item Truth value, i.e., whether the PGM considers the input proposition (provided or computed) true or false. PGM can also indicate that it doesn't understand the input or prove/disprove the proposition.
+
+\item Proof graph (or a subset of proof graph) generated by the PGM in favour or against the input proposition. This component is skipped if only computation results are requested.
+\end{itemize}
+
+Note that unlike other propositions and arguments on Sophize, these are not stored on disk. They have a temporary URI specified in a slightly different format. The leaves of the DAG can have two kinds of arguments:
+
+\begin{enumerate}
+\item Arguments whose the premises are limited to the premises of the PGM.
+\item Special `Arguments' that indicate that the generation of the remaining proof must be delegated to another PGM. In case of large proofs, a PGM may also delegate to itself after generating some (say 100) arguments.
+\end{enumerate}
+\subsection{Materializing results}
+
+Sophize allows saving the fact that a machine has returned a valid proof for a proposition (not the actual proof itself which can be quite large). Then this proposition can be used in further proofs without the need to invoke the proof generation every time. The proof, of course, can be requested by the users whenever required.
+
+
+\subsection{Connection across data sources}
 \todo{What are Translations? (informal to formal, formal to other formal), Why do we need translations?}
 
 There is no good way to claim equivalence of propositions across different formal systems. [Formal Harmony still in infancy, theory morphisms aren't yet practical].
@@ -199,132 +256,42 @@ Conjectural knowledge (Riemann hypothesis).
 Practical utility of conjectural knowledge - eg. a lot of information security systems assume "P is not NP"
 Proof tailored to needs. Proof graph can be easily converted to prose too.
 
-\subsubsection{Other Notes}
-\todo{What criteria are met based on the 2013 report}
 
-\todo{How much math can be represented. Eg. three valued logic}
+\section{Sophize Markdown}
 
-\todo{Sophize's limitations. In "Potential Value of a
-Digital Mathematics Library" in 2013 report. Sophize offers no way to more easily find analogies or weaker forms of reasoning like “If A is true, then B is true. B is true; therefore, A becomes more plausible.” }
+In the author's view, it is crucial to maintain the proofs graphs for building trustable knowledge. However, the presentation of proofs as graphs to users is perhaps not very convenient. Traditional text based narration remains indispensable when presenting knowledge to the reader.
 
+We have extended the Markdown language - a lightweight markup language for creating formatted text using a plain-text editor - for building a rich narration interface. It allows users to quickly encode and present semantic data, to show the truth status of propositions available in prose, and to effortlessly access proof graphs. The detailed specification of Sophize Markdown is available here. Many of its features are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}. We highlight some of the salient features here.
 
-\section{Proof Generating Automata (PGA)}
-A lot of mathematical knowledge is computed. Computation machines (calulators, algebras) can be seen as performing the following tasks: 
-1. parsing the input into a language that can represent math formulae. 
-2. Finding and outputting an equivalent form of the formula.
+\subsection{Embedding semantic data}
 
-Thus, their focus is not on finding the proof but only finding the equivalent (simplified) representation of the input formula. (Although many computer algebras do show the steps of the computation.)
+With Sophize Markdown we can easily link resources such as terms, propositions, and arguments. Links can be added using the pound sign (\#) and the resource's URI. There are multiple resource link options that can be used for changing the behavior and text of the resource link. The following examples demonstrate these options.
 
-With Sophize, the focus instead is to generate proofs of the input propositions. However, Sophize machines can also have the capability to perform tasks 1 and 2, mentioned above.
-
-\subsection{'Active' PGA}
-As with other parts of Sophize, the validity of the output of a PGA is not taken for granted. Each automata specifies the premises (assumptions) that it uses to generate its proof. In addition, an automata may also delegate parts of proofs to another automata. These automata must also be specified. 
-
-An automata is considered 'active' in a belief set if:
-1) all of its premises are true
-2) all the automata it delegates-to are active.
-
-As with an argument, one or more premises is used to indicate the validity of the automata (Eg. tested by X, verified by some committee, another program etc). Thus, to be considered active in a belief set, the PGA must have a verification criteria that matches the belief set's requirements.
-
-\subsection{PGA response}
-A PGA receives as a proposition as an input. The output of a PGA has the following components:
-
-1. Truth value of the proposition.
-
-2. The proof of the propositions (or its negation) as a DAG of arguments generated by the PGA. 
-
-Note that unlike other propositions, and arguments on Sophize these are not stored on disk but do have a temporary URI specified in a slightly different format. The leaves of the DAG can have two kinds of arguments:
-1. Arguments were the premises are limited to the premises of the PGA.
-2. Special 'Arguments' that indicate that the generation of the remaining proof must be delegated to another PGA.
-
-dealing with large proofs: delegate to self after generating (say 100) arguments.
-
-- (calculator like usage) - sometimes you don't care about proof just want to find what 157+346 is. You can set the fetch\_proof flag to `false' and `parse\_lenient' to 'true' in the request to the PGA. Saves computation. 
-
-\subsection{Implementing a PGA}
-It is the responsibility of the PGA to parse the input, and optionally do the computation and proof generation. Sophize platform merely forwards the request to the PGA and performs some sanity checks on the output.
-
-Any http server that can process the proof requests can be easily plugged in to Sophize. The registration is done in minutes and just requires just the specifying the address of the server to the Sophize's administrator. One server can implement multiple PGAs.
-
-
-\subsection{Materializing results}
-
-Sophize allows saving the fact that a machine has returned a valid proof for a proposition (not the actual proof which can be quite large). Then this proposition can be used in further proofs without the need to invoke the proof generation every time. The proof, of course, can be requested by the users whenever required.
-
-
-\section{Other Engineering challenges}
-\todo{copyright/access management}
-
-\todo{efficient computation and storage of proof graphs}
-
-\todo{ storing and reading data in disk/GitHub like repo }
-
-
-\section{Sophize Markdown[FROM CICM]}
-
-Markdown is a lightweight markup language for creating formatted text using a plain-text editor. Markdown is very widely adopted on the web, and it makes it quite simple to add lists, headers, bold or italic fonts, images, and more. One can choose from several slightly varying Markdown specifications. We start with the widely supported CommonMark specification and create extensions for the features that we need. The extensions are implemented using the `markdown-it' \cite{markdown_it} JavaScript parser. The parser for Sophize Markdown produces an abstract syntax tree (AST). A separate renderer module utilizes the AST tree to create the appropriate HTML or Single Page Application (SPA) libraries. Many of the features of Sophize Markdown are demonstrated at: \url{https://youtu.be/5UYOpQwcjCk}
-
-\subsection{Embedding structured data}
-
-With Sophize Markdown we can easily embed resources such as terms, propositions, and arguments. Links can be added using the resource's URI, and the following formats are supported:
-
-
-\begin{itemize}
-
-	\item \#URI[ $\vert$ OPTIONS ]
-
-	Examples: \#wiki/T\_cone, \#planetmath/P\_covering\_lemma$\vert$NO\_LINK$\vert$LC
-
-	\item \#(URI, \textquotesingle Custom\ Text\textquotesingle [ $\vert$ OPTIONS ])
-
-	Examples: \#(wiki/T\_cone, \textquotesingle cones\textquotesingle), \#(P\_green\_tao\_theorem, 'Green–Tao Theorem'$\vert$NAV\_LINK)
-
-\end{itemize}
-
-There are multiple resource link options to embed a resource in the Markdown. These are required to make it convenient for the content creators to provide a rich experience to their readers. Some of the commonly used options are summarized below.
-
-\subsubsection{Link Text Options}
-
-\paragraph{\textbf{NAME} (default): This option fetches the resource and sets the link text to the name of the resource. For terms, the link text is set to the phrase of the term.}
-
-\paragraph{\textbf{LOWER\_CASE (LC) or UPPER\_CASE (UC)}: These options become quite useful when adding a link in the beginning or middle of a sentence where adding the name in its default case would be grammatically incorrect.}
-
-\paragraph{\textbf{Custom text}: A link can also explicitly specify the link text by enclosing it in single quotes.}
-
-The following example shows the above options in use. Note that we assume that the dataset-id of URIs is available from the context and thus not specified in the URIs.
-
+\subsubsection*{Example 1}
 \begin{verbatim}
-#P_cosine_law|UC is a generalization of the #P_pythagorean for all kinds of
-#(T_triangle, 'triangles').
+#P_cosine_law|UC generalizes the #P_pythagorean for all kinds of #(T_triangle, 'triangles').
 \end{verbatim}
 
 \paragraph{The above code is rendered as:}
 \begin{mdframed}
-\dashuline{Law of cosines} is a generalization of the \dashuline{Pythagorean theorem} for all kinds of \dashuline{triangles}.
+\dashuline{Law of cosines} generalizes the \dashuline{Pythagorean theorem} for all kinds of \dashuline{triangles}.
 \end{mdframed}
 
-\subsubsection{Link Type Options}
+The link options 'UC/LC' makes the link text upper-cased or lower-cased.
 
-\paragraph{\textbf{OVERLAY\_LINK} (default): By default, clicking on links opens up a modal dialog with the resource's summary.}
-
-\paragraph{\textbf{NAV\_LINK}: We can create a hyperlink to the resource's URL using the using NAV\_LINK option.}
-
-\paragraph{\textbf{NO\_LINK}: NO\_LINK creates a non-clickable element whose hover text is the URI of the resource.}
-
-
-For example, the following Markdown code has all three link types:
+\subsubsection*{Example 2}
 \begin{verbatim}
-#T_matrix_multiplication|NO_LINK is a #(T_commutative_property, 
-'non-commutative'|NAV_LINK) #T_binary_operation.
+#T_matrix_multiplication|NO_LINK is a #(T_commutative_property, 'non-commutative'|NAV_LINK)
+#T_binary_operation.
 \end{verbatim}
 
 \paragraph{The above code is rendered as:}
 \begin{mdframed}
 Matrix multiplication is a \underline{non-commutative} \dashuline{binary operation.}
 \end{mdframed}
-The first element shows `\#wiki/T\_matrix\_multiplication' on mouse-hover. The second link navigates the page to a different URL. Clicking on the third link pops up a modal dialog box like so:
+This example shows the various link behaviours. The first element shows `\#wiki/T\_matrix\_multiplication' on mouse-hover. The second link navigates the page to a different URL. Clicking on the third link pops up a modal dialog box like so:
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \fbox{\includegraphics[height=5cm]{modal}}
 \caption{Modal dialog box for the term binary operation. These boxes can also have content that uses all three types of links. }
@@ -332,51 +299,45 @@ The first element shows `\#wiki/T\_matrix\_multiplication' on mouse-hover. The s
 \end{center}
 \end{figure}
 
-\subsubsection{Resource Expansion}
-
-Instead of creating a link, this option expands the resource in place. For terms and propositions, the definition and the statement are added in place, respectively. For arguments, its premises, conclusion, and the argument text is added.
-
-The following is a sample article where we re-use concepts and theorems already extracted from multiple sources (say, Wikipedia and the Oxford dictionary):
+\subsubsection*{Example 3}
 
 \begin{verbatim}
 # Conic section
 
 A conic section (or simply conic) is a curve obtained as the intersection of the
-#(wiki/T_conical_surface, 'surface') of a #wiki/T_cone with a #wiki/T_plane. There are
-three types of conic sections.
+surface of a #wiki/T_cone with a #wiki/T_plane. There are three types of conic sections.
 
 ## Ellipse
 #oxford/T_ellipse|EXPAND #wiki/P_ellipse_area|EXPAND
 
 ## Parabola
-#oxford/T_parabola|EXPAND The area of a parabola is unbounded.
 ...
 \end{verbatim}
 
 \paragraph{The above code is rendered as:}
 \begin{mdframed}
 \section*{Conic Section}
-A conic section (or simply conic) is a curve obtained as the intersection of the \dashuline{surface} of a \dashuline{cone} with a \dashuline{plane}. There are three types of conic sections.
+A conic section (or simply conic) is a curve obtained as the intersection of the surface of a \dashuline{cone} with a \dashuline{plane}. There are three types of conic sections.
 
 \subsection*{Ellipse}
-An ellipse is a regular \dashuline{oval} shape, traced by a point moving in a plane so that the sum of its distances from two other points (the foci) is constant, or resulting when a cone is cut by an oblique plane which does not intersect the base.  The area $A_{ellipse}$ enclosed by an ellipse is $$A_{ellipse} = \pi a b$$where $a$ and $b$ are the lengths of the \dashuline{semi-major} and \dashuline{semi-minor} axes, respectively.
+An ellipse is a regular \dashuline{oval} shape, traced by a point moving in a plane so that the sum of its distances from two other points is constant. The area $A_{ellipse}$ enclosed by an ellipse is $$A_{ellipse} = \pi a b$$where $a$ and $b$ are the lengths of the \dashuline{semi-major} and \dashuline{semi-minor} axes, respectively.
 
 \subsection*{Parabola}
-A parabola is a \dashuline{symmetrical} open plane curve formed by the intersection of a cone with a plane parallel to its side. The area of a parabola is unbounded.
-
 ...
 
 \end{mdframed}
 
-\subsubsection{Status Indicators}
+In the above example, the `EXPAND' option expanded the definition of the term, and statement of the proposition in place. Thus we were able to easily re-use concepts and theorems already extracted from other sources (say, Wikipedia and the Oxford dictionary in this case).
 
-For propositions, a Truth Value Icon indicating whether or not there is a proof is added next to the link. Clicking on the icon brings up the proof graph as shown in Figure \ref{proof_tree}. Similarly, an icon is added next to an argument which indicates whether the argument is valid or not. These options can be turned on or off depending on the input and the context. Further details require an in-depth understanding of the Sophize knowledge organization scheme which is not our focus here.
+\subsection{Status Indicators}
+
+For propositions, a truth-value icon indicating whether or not there is a proof is added next to the link. Clicking on the icon brings up the proof graph as shown in Figure \ref{proof_tree}. Similarly, an icon is added next to a proof generating machine which indicates whether the PGM is active or not. These options can be turned on or off depending on the input and the context. 
 
 \subsection{Formal Language Support}
 
 In formal languages, definitions of terms, statements of propositions, and supporting argument text may be parseable by an external parser. We can convert the externally parsed output into Markdown in such a case, where each term is automatically linked to the appropriate resource. This provides a convenient interface, where the user types in the native language, and the final output automatically allows users to explore all concepts that make up the input statement in depth. Currently, this is demonstrated in the use of Sophize Markdown with the Metamath language.
 
-\begin{figure}[ht]
+\begin{figure}[htbp]
 \begin{center}
 \fbox{\includegraphics[height=3cm]{formal}}
 \caption{The prime number theorem written in Metamath language and rendered as Markdown in real time.}
@@ -386,11 +347,7 @@ In formal languages, definitions of terms, statements of propositions, and suppo
 
 \subsection{\LaTeX\space Support}
 
-While multiple applications extend Markdown to support TeX, there is no standardized syntax specification. However, Pandoc is the most widely used tool for converting \LaTeX\space to Markdown, and its specification is well documented and tested. Thus, we use their specification for our extension \cite{pandoc}:
-
-\blockquote{Anything between two \$ characters will be treated as TeX math. The opening \$ must have a non-space character immediately to its right, while the closing \$ must have a non-space character immediately to its left, and must not be followed immediately by a digit. Thus, \$20,000 and \$30,000 won’t parse as math. If for some reason you need to enclose text in literal \$ characters, backslash-escape them and they won’t be treated as math delimiters.
-
-For display math, use \$\$ delimiters. (In this case, the delimiters may be separated from the formula by whitespace. However, there can be no blank lines between the opening and closing \$\$ delimiters.)}
+With Sophize Markdown, we can add \LaTeX\space by enclosing it between two \$ signs (or \$\$ for display math).
 
 The following example summarizes the specification:
 \begin{quote}
@@ -409,82 +366,23 @@ what fetched \$1.3 million recently. While it may not fetch many \$s, I like the
 equations more: $$G_{\mu \nu }+\Lambda g_{\mu \nu }=\kappa T_{\mu \nu }$$
 \end{mdframed}
 
-\section{Sophize Collaboration [From CICM]}
-
-Sophize's communication interface is designed to allow multiple researchers to collaboratively solve a problem. In such open online collaborations, a lot of different ideas and approaches get introduced rapidly. Going through all these comments and making sense of the rapidly evolving ideas becomes a daunting task that can dissuade even the experts and the highly motivated. We believe that we have created a novel interface that can significantly mitigate this problem. The work is primarily influenced by recommendations made by Timothy Gowers and Terence Tao after organizing several Polymath projects \cite{polymath_blog}. We believe that the interface can aid many collaboration types - with few or many participants. We demonstrate the various features of this interface by incorporating actual data from a Polymath project at: \url{https://youtu.be/d3gaalJ7UQM}.
-
-\begin{figure}[ht]
-\begin{center}
-\fbox{\includegraphics[height=14cm]{collab}}
-\caption{Some elements of the Sophize Collaboration Interface.}
-\label{collab}
-\end{center}
-\end{figure}
-
-\subsubsection*{Requirements}
-
-Helping users make sense of the conversation and allowing them to get up to speed with existing progress as quickly as possible is perhaps the most important requirement for managing online collaborations. To solve this problem, we need to organize the ideas in an intuitive way and to summarize the progress. A reader should be able to quickly grasp the current state, and project moderators need a way to manage the direction of various threads to avoid the big picture from being obscured.
-
-Other technical requirements were discussed by some project participants and summarized by Tao on his blog \cite{whats_new_2009} (lightly edited):
-
-\begin{itemize}
-
-  \item \LaTeX\space support
-
-  \item Group moderation
-
-  \item Comment editing and preview
-
-  \item Comment numbering and/or threading
-
-  \item Wiki-like features, i.e., group-editable, publicly-viewable documents with version control
-
-  \item Some way to view all recent comments or developments in a project
-
-  \item Easy registration process
-
-  \item Easy commenting process (i.e., no technical knowledge required)
-
-  \item Permanent URLs for posts and comments (for link-back purposes)
-
-\end{itemize}
-
-
-We note that Sophize provides all the above features except that it doesn't yet allow users to look at the previous versions of documents. We summarize innovative features of the platform below:
-
-\subsection{Hierarchical Page Organization}
-
-As noted by Gowers, to make sense of the numerous ideas discussed, they need to be organized in a natural hierarchical way. The `proof discovery tree', as described by Gowers \cite{gowers_weblog_2009}, would have a precise approach to the main problem, and each of the subproblems that come up would have its own trees. The leaves of the tree would thus be sub-problems that get solved without division into sub-problems.
-
-Sophize brings the `Proof-discovery tree' to life by organizing the project using neatly organized wiki-like pages. Pages have a parent-child relationship allowing them to be organized like a tree. Discussion comments can be posted on any page, and moderators can rearrange them the way they think is best for the project. Moderators are also encouraged to add an overview on each page that quickly informs readers of the significant ideas that they should be familiar with before they start contributing.
-
-\subsection{Comment Summaries}
-
-Even after the hierarchical division of comments, some pages can still have a large number of comments, which make them difficult to follow. To overcome this problem, we allow project moderators to create summaries of discussions that have taken place so far. Comment summaries get embedded in the comment tree as a parent for comments they summarise. For example, they can club together multiple comment chains that are dead ends so that each reader doesn't waste time on them. Or they could summarize a sub-proof that was arrived at after dozens of comments.
-
 \subsection{Sophize Markdown benefits}
 
-Project collaborators get all the benefits of Sophize Markdown, such as easy linking of existing math content, \LaTeX\space support, and live preview of pages and comments being written or edited.
+With Sophize Markdown at its core, Sophize's collaboration interface\cite{todo}  (\underline{\href{https://youtu.be/d3gaalJ7UQM}{demo}}) is able to provide key features such as easy linking of existing math content, \LaTeX\space support, and live preview comment drafts.
 
-Comments in Sophize are numbered serially (starting with 1 for each collaboration), each comment can be referenced with the hashtag notation (e.g., `\#3' for the 3rd comment). Comments in an external project can be referenced by providing the project's URI (\#URI/COMMENT\_NUMBER).
+\section{Other Engineering challenges}
+\todo{copyright/access management}
 
-Also, we make it extremely easy to extract terms, propositions and proofs from comments. These resources not only help in better understanding of the project, it also helps build Sophize's library.
+\todo{efficient computation and storage of proof graphs}
 
-\subsection{Reducing noise}
+\todo{ storing and reading data in disk/GitHub like repo }
+\subsubsection{Other Notes}
+\todo{What criteria are met based on the 2013 report}
 
-Sophize gives project moderators the usual tools like spam removal and fine-grained access control to manage participants. We also add a new feature where certain comments can be marked hidden. Often, threads of dozens of comments can be just noise because they were based on confused concepts or mistaken assumptions. Such comments should not be marked as spam. By marking such threads as `hidden', moderators can ensure that these are not shown by default. But any user can view them when required.
+\todo{How much math can be represented. Eg. three valued logic}
 
-\section{Conclusion and Future Work}
-
-We have presented Sophize Markdown, a lightweight language for representing mathematical knowledge on the web. Using this language, we can easily embed mathematical entities like definitions, theorems, and proofs, making it very convenient to find and browse relevant content. Sophize Markdown plays a central role in organizing proofs from various data sources on the Sophize platform. While there are other ways to represent semantic knowledge, such as content MathML and OpenMath, their scope is somewhat limited to specifying the meaning of the mathematical formula. The sTeX system \cite{Kohlhase2008} is perhaps most similar to Sophize Markdown but it needs creation of \LaTeX\space documents and use of \LaTeX ML systems. This makes its use in real-time web workflows impractical.
-
-We utilized the Sophize Markdown language to create an innovative mathematics communication interface. It is specially designed to aid online mathematics collaborations and can help actualize their vast latent potential. We believe that it can not only aid large-scale collaborations like the Polymath projects but will also be useful for private collaborations and workshops like those organized by AiM.
-
-In the future, we want to make a substantial portion of math literature embedded with structured data available at a much greater scale. Thus, we will improve Sophize Markdown's support for \LaTeX\space features like equation numbering, tables, and references. In addition, we are developing an online tool to easily extract content like definitions, theorems, proofs from math literature by automating some of the tedious tasks. This process will be aided by the recent supervised learning techniques \cite{ginev2019scientific} that classify scientific statements in literature.
-
-
-\subsection*{Sources}
-The Sophize Markdown parser and its Angular renderer source code are available under an MIT license at \url{https://github.com/Sophize/sophize-md-parser} and \url{https://github.com/Sophize/ngx-sophize-md-renderer}, respectively. The NPM packages for these projects are named `sophize-md-parser' and `ngx-sophize-md-renderer'.
+\todo{Sophize's limitations. In "Potential Value of a
+Digital Mathematics Library" in 2013 report. Sophize offers no way to more easily find analogies or weaker forms of reasoning like “If A is true, then B is true. B is true; therefore, A becomes more plausible.” }
 
 \bibliographystyle{alpha} 
 
