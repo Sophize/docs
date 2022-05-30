@@ -51,7 +51,7 @@ scheme at its core, we have engineered a platform to logically aggregate knowled
 multiple sources. The platform curates knowledge from published research, encyclopaedias
 such as PlanetMath and Wikipedia, informal computer programs, and formal systems such as
 Metamath; and allows its users to run a federated search over them. To make this happen, two
-developments were necessary. First, we came up with the concept of 'proof-generating
+developments were necessary. First, we came up with the concept of `proof-generating
 machines' and developed an open plugin architecture that allows proofs from computer
 programs to be generated as required. Second, we extended the Markdown language to represent
 the connections between mathematical objects found across various sources of knowledge. In
@@ -89,12 +89,9 @@ Wikipedia, and the Metamath formal system \cite{metamath}.
 In the past couple of decades, the Internet has revolutionized our life by giving us access
 to seemingly unlimited information. Information from a wide variety of topics ranging from
 human medicine to rocket science is now just a few keystrokes away. However, it seems
-that we are having even more trouble making sense of the World around us. In fact, dealing with the vast amounts of information thrown at us seems to be one of the most important problems of our generation. While we have access to a wide range of opinions on almost every topic imaginable, it has become increasingly difficult to decide which one to trust. It
-seems that we can find "proofs" for anything and everything we would like to believe.
+that we are having even more trouble making sense of the World around us. In fact, dealing with the vast amounts of information thrown at us seems to be one of the most important problems of our generation. While we have access to a wide range of opinions on almost every topic imaginable, it has become increasingly difficult to decide which ones to trust. It seems that the Internet can find us "proofs" for anything we would like to believe.
 
-Thus the author's primary motivation for this project is to create a library that not just
-lays out all the information about the World but organizes it in a way that helps us make
-better sense of it. A library that helps us access justifications from a variety of
+Thus, the author's primary motivation for this project is to create a library that not just lays out all the information about the World but organizes it in a way that helps us make better sense of it. A library that helps us access justifications from a variety of
 viewpoints and allows us to collaboratively and objectively evaluate issues in the
 justifications or the viewpoints they arise from. Clearly, this is a challenging goal. 
 
@@ -240,27 +237,27 @@ Thus, it is important to track and report contradictions in a belief set. To do 
 
 \subsection{Potential Advantages}
 
-Logical organization of mathematics can lead to many advantages. We list some interesting ones below.
+Apart from organizing knowledge focused on trust and aggregating disparate data sources, logical organization of mathematics can lead to many other advantages. We list some interesting ones below.
 
 This knowledge organization scheme facilitates the re-use of propositions, and arguments across different theories. For example, to organize knowledge of different constant-curve geometries, we would create 4 belief sets - one each for absolute, Euclidean, hyperbolic and elliptic geometries. The latter three belief sets would comprise the absolute geometry belief set and the appropriate version of the parallel postulate needed for them. In such a scheme all the arguments (proofs) added to the argument graph for absolute geometry would automatically be shared by the other three geometries. The other three geometries need to only add the arguments that utilize their version of the parallel postulate.
 
-Another use case would be to understand the consequences of important conjectures like the Reimann hypothesis by creating two belief sets - one where the conjecture is true and one where it is false. The proof graphs would systematically store such conjectural knowledge which often gets lost especially when results from multiple conjectures are involved. Complexity theory is one such field where this need is quite apparent. On a more practical note, several information security systems build on the conjectural developed with the assumption $P \neq NP$.
+Another use case would be to understand the consequences of important conjectures like the Reimann hypothesis by creating two belief sets - one where the conjecture is true and one where it is false. The proof graphs would systematically store such conjectural knowledge which often gets lost especially when results from multiple conjectures are involved. Complexity theory is one such field where this need is quite apparent. Such conjectural knowledge knowledge can have practical applications too. For example, a lot of our information security systems utilize the knowledge developed with the conjectures $P \neq NP$.
 
-Proof graphs are currently organized as trees as seen in Fig \ref{proof_tree}. Users can keep exploring the proof till they reach a point where the propositions are already familiar to them. A future application of proof graphs would be to generate narrative proofs based on tailored to the reader's current understanding. This could be achieved in a classroom setting where the current level of mathematical understanding of students is known or assumed. It may also be possible to infer this from the user's activity on the platform.
+Proof graphs are currently organized as trees as seen in Fig \ref{proof_tree}. Users can keep exploring the proof till they reach a point where the propositions are already familiar to them. A future application of proof graphs would be to generate narrative proofs tailored to the reader's current understanding. This could be achieved in a classroom setting where the current level of mathematical understanding of students is known or assumed. It may also be possible to infer this from the user's activity on the platform.
 
 \subsection{Limitations}
 The scheme described in this section has a semantic notion of negation of a proposition to track contradictions. Thus it is incapable of organizing knowledge that depends on more complex calculi such as many-valued logics.
 
 \section{Proof-Generating Machines (PGM)}
 \label{sec:pgm}
-A lot of mathematical knowledge is computed. Computation machines (e.g. calculators, algebras) can be seen as performing the following tasks
+A lot of mathematical knowledge is computed. Most computation machines (e.g. calculators, algebras) can be seen as performing the following tasks
 \begin{itemize}
 \item Parsing the input into a language that can represent math formulae. 
 \item Finding and outputting an equivalent form of the formula.
 \end{itemize}
-Thus, their focus is not on finding the proof but only finding the equivalent (simplified) representation of the input formula (Although many computer algebras do show the steps of the computation.). With Sophize, the focus instead is to generate proofs of the input propositions. A \textbf{proof-generating machine} (PGM) is a computer program that generates a partial proof graph against or in favour of an argument. PGMs can also have the capability to perform tasks 1 and 2, mentioned above.
+Thus, their focus is not on finding the proof but only finding the equivalent simplified representation of the input formula (Although many computer algebras do show the steps of the computation). With Sophize, the focus instead is to generate proofs of the input propositions. A \textbf{proof-generating machine} (PGM) is a computer program that generates a partial proof graph against or in favour of an argument. PGMs can also have the capability to perform tasks 1 and 2, mentioned above.
 
-PGMs take in some text as input which is parsed by the each PGM as they wish. Typically the text is treated either as a proposition (e.g. `3 + 5 = 8') or a formula (eg. `5+6') and in the latter case the PGM is responsible for finding an appropriate proposition (eg. `5 + 6 = 11') for the given input. The PGM then generates a proof graph for this proposition and returns back to the user.
+PGMs take in some text as input which is parsed by the each PGM as they wish. Typically the text is treated either as a proposition (e.g. `3 + 5 = 8') or a formula (eg. `5 + 6') and in the latter case the PGM is responsible for finding an appropriate proposition (eg. `5 + 6 = 11') for the given input. The PGM then generates a proof graph for this proposition and returns back to the user.
 
 The Sophize platform itself merely forwards the request to the associated PGM and performs some checks on the output returned. Any http server that can process a proof request can be easily plugged in to Sophize platform using its HTTP address. One server can implement multiple PGMs. An overview of PGMs generating Metamath proofs is here: \url{https://youtu.be/hJtEIo3ioLM}
 
@@ -289,8 +286,9 @@ Note that unlike other propositions and arguments on Sophize, these are not stor
 
 \begin{enumerate}
 \item Arguments whose the premises are limited to the premises of the PGM.
-\item Special `Arguments' that indicate that the generation of the proof of this argument's conclusion must be delegated to another PGM. To paginate large proofs, a PGM may also delegate to itself after generating some (say 100) arguments.
+\item Special `Arguments' that indicate that the generation of the proof of this argument's conclusion must be delegated to another PGM. Seeing such arguments, the Sophize platform requests the remainder of the proof from the indicated PGMs as needed to allow users to browse the proof uninterrupted. To paginate large proofs, a PGM may also delegate to itself after generating some (say 100) arguments.
 \end{enumerate}
+
 \subsection{Materializing results}
 
 Sophize allows saving the fact that a machine has returned a valid proof for a proposition (not the actual proof itself which can be quite large). Then this proposition can be used in further proofs without the need to invoke the proof generation every time. The proof, of course, can be requested by the users whenever required.
@@ -337,7 +335,7 @@ An ellipse is a regular \dashuline{oval} shape, traced by a point moving in a pl
 
 \end{mdframed}
 
-In the above example, the `EXPAND' option expanded the definition of the term, and statement of the proposition in place. Thus we were able to easily re-use concepts and theorems already extracted from other sources (say, Wikipedia and the Oxford dictionary in this case). Clicking on the underlined concepts, pops-up a modal dialog with the definition of the term clicked.
+In the above example, the `EXPAND' option expanded the definition of the term, and statement of the proposition in place. Thus we were able to easily re-use concepts and theorems already extracted from other sources (say, Wikipedia and the Oxford dictionary in this case). Clicking on the underlined concepts pops-up a modal dialog with the definition of the term clicked.
 
 \subsection{Truth Status}
 
@@ -363,13 +361,13 @@ Solving these problems would require manual effort (e.g. crowd-sourcing) combine
 
 \subsection{Data Management}
 
-Sophize divides its data into groups called datasets for copyright and data access management. For example, the 'wiki' dataset that extracts knowledge from Wikipedia mathematics glossaries releases its data under `CC-BY-SA' license, whereas the `metamath' dataset is public (`CC0'). Our signed-in users are free to create their own datasets and we allow them to choose who can read, write or comment in these datasets. Another interesting access control is the restriction of use of resources (especially argument-validity criteria) from an otherwise open-to-read dataset.
+Sophize divides its data into groups called datasets for copyright and data access management. For example, the `wiki' dataset that extracts knowledge from Wikipedia mathematics glossaries releases its data under `CC-BY-SA' license, whereas the `metamath' dataset is public (`CC0'). Our signed-in users are free to create their own datasets and we allow them to choose who can read, write or comment in these datasets. Another interesting access control is the restriction of use of resources (especially argument-validity criteria) from an otherwise open-to-read dataset.
 
-Information can be added to Sophize platform using intuitive web forms. However, it is infeasible to extract information from large repositories in this manner. Sophize publishes its data schema (explained in Section \ref{sec:core}) and helper libraries in multiple languages. The extracted information is can thus be stored as text (JSON) files in a repository. Sophize provides dataset owners the ability to sync knowledge such repositories to the central Sophize database.
+Information can be added to Sophize platform using intuitive web forms. However, it is infeasible to extract information from large repositories in this manner. Sophize publishes its data schema (explained in Section \ref{sec:core}) and helper libraries in multiple languages. The extracted information is can thus be stored as text (JSON) files in a repository. Sophize provides dataset owners the ability to sync knowledge such repositories to the central Sophize database. The datasets `wiki' and `planetmath' use this scheme for keeping the script-generated data synced with Sophize's central database.
 
 \subsection{Search Interface}
 \label{sec:search}
-Sophize allows its users to run a run a federated search over its resources using an Elasticsearch server. We even allow users to \LaTeX to their search queries. The server runs search a space-insensitive and case-insensitive search over \LaTeX\space formulae by encoding \LaTeX\space formulae as lexemes and an Elasticsearch analyzer that removes spaces and lower cases the encoding. (See section \ref{sec:sources} for sources)
+Sophize allows its users to run a run a federated search over its resources using an Elasticsearch server. We even allow users to \LaTeX to their search queries. The server runs search a space-insensitive and case-insensitive search over \LaTeX\space formulae by encoding \LaTeX\space formulae as lexemes and an Elasticsearch analyzer processes them appropriately. (See section \ref{sec:sources} for sources)
 
 \subsection{Collaboration}
 
@@ -381,7 +379,7 @@ The Sophize platform includes an innovative mathematics communication interface 
 
 We have presented the Sophize platform, a modern open mathematics library focused on providing reliable and detailed knowledge to its users. We extract and aggregate logical arguments from a wide variety of sources including published research, encyclopedias, formal theorem provers, and formal/informal programs. While there exist other systems that work with disparate data sources, we are aware of no other systems that attempt to logically aggregate knowledge across these data sources. Using this organization scheme we can maintain proofs of results from different theoretical foundations and tailor them to a user's knowledge reliability criterion.
 
-We show how PGMs can be used to compute proofs in real-time and embed them in our knowledge graphs. We utilize the proof-graphs using Sophize Markdown to allow users to effortlessly browse proofs and lookup math entities in math literature. While there are other ways to represent semantic knowledge, such as content MathML and OpenMath, their scope is somewhat limited to specifying the meaning of the mathematical formula. The sTeX system \cite{Kohlhase2008} is perhaps most similar to Sophize Markdown but it needs creation of \LaTeX\space documents and use of \LaTeX ML systems. This makes its use in real-time web workflows impractical.
+We show how proof-generating machines can be used to instantaneously compute proofs that embed into previously computed graphs. We showcase how Sophize Markdown allow users to effortlessly browse proof-graphs and lookup entities in math literature. While there are other ways to represent semantic knowledge, such as content MathML and OpenMath, their scope is somewhat limited to specifying the meaning of the mathematical formula. The sTeX system \cite{Kohlhase2008} is perhaps most similar to Sophize Markdown but it needs creation of \LaTeX\space documents and use of \LaTeX ML systems. This makes its use in real-time web workflows impractical.
 
 In its current state, Sophize has limited information to share with its users. Thus, we would first like to develop automated or semi-automated techniques to extract semantic knowledge from literature and expand the knowledge base that we share with our community. Using the proof-graphs and the semantic information collected we would like to make it easier for users to find relevant content with better search results.
 
